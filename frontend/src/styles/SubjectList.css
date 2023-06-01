@@ -3,6 +3,10 @@
   width: 10%;
 }
 
+.title_magnify_icon {
+  padding-right: 5px;
+}
+
 [contenteditable="true"]:empty:not(:focus)::before {
   content: attr(placeholder);
   pointer-events: none;

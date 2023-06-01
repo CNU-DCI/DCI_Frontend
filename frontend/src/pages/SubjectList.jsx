@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { SearchSubjectList } from "../components/subjectlist";
+import { SearchResult, SearchSubjectList } from "../components/subjectlist";
 
 const SubjectListDiv = styled.div`
   width: 100%;
@@ -11,6 +11,7 @@ const SubjectList = () => {
   return (
     <SubjectListDiv>
       <SearchSubjectList />
+      <SearchResult />
     </SubjectListDiv>
   );
 };

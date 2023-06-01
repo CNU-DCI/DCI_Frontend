@@ -8,12 +8,12 @@ const SearchSubjectDiv = styled.div`
   height: 20%;
   border-bottom: 1px solid ${MINT};
   display: flex;
-  margin: auto;
+  justify-content: center;
+  place-items: center;
 `;
 
 const ContentDiv = styled.div`
   width: 50%;
-  height: 100%;
 `;
 
 const RowDiv = styled.div`
@@ -36,6 +36,7 @@ const SelectP = styled.p`
   font-size: 15px;
   display: inline-block;
   margin: 0;
+  padding: 0 5px;
   color: #888888;
 `;
 
@@ -44,12 +45,13 @@ const SearchSection = styled.div`
   height: 50px;
   border: 1px solid ${MINT};
   border-radius: 50px;
+  box-sizing: border-box;
   background-color: #f8f8f8;
 `;
 
 const SearchInput = styled.p`
   color: #888888;
-  font-size: 13px;
+  font-size: 14px;
   padding-left: 5%;
   display: inline-block;
   box-sizing: border-box;
