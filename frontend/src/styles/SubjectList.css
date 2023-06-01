@@ -1,0 +1,10 @@
+.magnify_icon {
+  display: inline-block;
+  width: 10%;
+}
+
+[contenteditable="true"]:empty:not(:focus)::before {
+  content: attr(placeholder);
+  pointer-events: none;
+  display: block;
+}
