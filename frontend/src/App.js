@@ -1,16 +1,24 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Main, SubjectList } from "./pages";
+import styled from "@emotion/styled";
+
+const Background = styled.div`
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+`;
 
 function App() {
   return (
-    <div className="App">
+    <Background className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/subjectList" element={<SubjectList />} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </Background>
   );
 }
 
