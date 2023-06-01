@@ -1,10 +1,8 @@
 {
   "compilerOptions": {
-      // "." || "src"
-      "baseUrl": "src",
-      "paths": {
-          // "name": [value]
-          "components/*": ["components/*"]
-      }
-  }
+      "baseUrl": "src"
+  },
+  "include": [
+      "src"
+  ]
 }
