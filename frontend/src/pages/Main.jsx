@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Navbar } from "components/navbar/index";
 
-import slide01 from 'img/slide01.png'
+import slide01 from "img/slide01.png";
 
 
 const Layout80vw = styled.div`
@@ -11,15 +11,17 @@ const Layout80vw = styled.div`
 
 
 const Main = () => {
-  return(
+  return (
     <>
       <Navbar></Navbar>
+
       <img src={slide01} style={{ width: "100vw" }}></img>
       <Layout80vw>
         
       </Layout80vw>
+
     </>
-  ) 
+  );
 };
 
 export default Main;

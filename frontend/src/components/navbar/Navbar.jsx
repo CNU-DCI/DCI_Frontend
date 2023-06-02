@@ -17,6 +17,7 @@ const MenuArea = styled.div`
 
 const Navbar = () => {
   return (
+
     <div style={{position: "fixed"}}>
       <img src={header} style={{ width: "100vw"}}></img>
       <MenuArea>
@@ -24,6 +25,7 @@ const Navbar = () => {
         <a href="/subjectList">과목목록</a> 
       </MenuArea>
     </div>
+
   );
 };
 
