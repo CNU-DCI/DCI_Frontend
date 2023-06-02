@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { FaSistrix } from "react-icons/fa";
-import header from 'img/header.png'
+import header from "img/header.png";
 
 const HeaderSize = styled.div`
   width: 100%;
@@ -8,11 +8,11 @@ const HeaderSize = styled.div`
 
 const Navbar = () => {
   return (
-    <>
-      <HeaderSize>
-        <img src={header}></img>
-      </HeaderSize>
-    </>
+    <div style={{position: "fixed"}}>
+      <img src={header} style={{ width: "100vw"}}></img>
+      <a href="/">홈</a>
+      <a href="/subjectList">과목목록</a>
+    </div>
   );
 };
 
