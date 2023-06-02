@@ -8,11 +8,11 @@ const HeaderSize = styled.div`
 
 const Navbar = () => {
   return (
-    <>
-      <HeaderSize>
-        <img src={header} style={{ width: "100%" }}></img>
-      </HeaderSize>
-    </>
+    <div style={{ position: "fixed" }}>
+      <img src={header} style={{ width: "100vw" }}></img>
+      <a href="/">홈</a>
+      <a href="/subjectList">과목목록</a>
+    </div>
   );
 };
 
