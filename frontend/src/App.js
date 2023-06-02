@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Main, SubjectList } from "./pages";
 import styled from "@emotion/styled";
+import './App.css';
 
 const Background = styled.div`
   width: 100%;
