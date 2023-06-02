@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { FaSistrix, FaShoppingBag } from "react-icons/fa";
+import { FaShoppingBag, FaTrashAlt } from "react-icons/fa";
 
 import "../../styles/SubjectList.css";
 import { useState } from "react";
@@ -27,6 +27,7 @@ const ContentDiv = styled.div`
   width: 100%;
   height: 30vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   place-items: center;
 `;
@@ -68,7 +69,8 @@ const ResultTableBody = styled.div`
 
 const ResultHead = styled.div`
   width: 95%;
-  background-color: #d9d9d9;
+  background-color: #072a5f;
+  color: white;
   border-radius: 19px;
   margin-bottom: 5px;
   height: 40px;
@@ -101,15 +103,37 @@ const IconDiv = styled.div`
   margin: auto;
 `;
 
-const SearchResult = () => {
+const ButtonsDiv = styled.div`
+  width: 80%;
+  text-align: right;
+`;
+
+const ResetBtn = styled.button`
+  background-color: #d9d9d9;
+  border: none;
+  width: 50px;
+  border-radius: 20px;
+`;
+
+const CompareBtn = styled.button`
+  margin-left: 15px;
+  background-color: #072a5f;
+  border: none;
+  color: white;
+  width: 100px;
+  border-radius: 20px;
+  margin-right: 5%;
+`;
+
+const Cart = () => {
   const [result, setResult] = useState(DUMMY_DATA);
   return (
     <ContentDiv>
       <SearchResultDiv>
         <SearchResultTitle>
           <SearchResultTitleP>
-            <FaSistrix class="title_magnify_icon" size="24" />
-            검색결과
+            <FaShoppingBag size="24" class="title_shopping_icon" />
+            장바구니
           </SearchResultTitleP>
           <ResultCountP>총 {result.length}개</ResultCountP>
         </SearchResultTitle>
@@ -148,15 +172,19 @@ const SearchResult = () => {
                   </ResultTableP>
                 </ResultBody>
                 <IconDiv>
-                  <FaShoppingBag size="24" class="shopping_icon" />
+                  <FaTrashAlt size="24" class="trash_icon" />
                 </IconDiv>
               </ResultBodyDiv>
             ))}
           </ResultTableBody>
         </ResultTableDiv>
       </SearchResultDiv>
+      <ButtonsDiv>
+        <ResetBtn>리셋</ResetBtn>
+        <CompareBtn>비교하기</CompareBtn>
+      </ButtonsDiv>
     </ContentDiv>
   );
 };
 
-export default SearchResult;
+export default Cart;

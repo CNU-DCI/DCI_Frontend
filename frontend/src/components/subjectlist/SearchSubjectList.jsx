@@ -1,15 +1,16 @@
 import styled from "@emotion/styled";
-import { LEMON, MINT } from "../../constants/color";
+import { MINT } from "../../constants/color";
 import { FaSistrix } from "react-icons/fa";
 import "../../styles/SubjectList.css";
 
 const SearchSubjectDiv = styled.div`
   width: 100%;
-  height: 20%;
+  height: 25vh;
   border-bottom: 1px solid ${MINT};
   display: flex;
   justify-content: center;
   place-items: center;
+  box-sizing: border-box;
 `;
 
 const ContentDiv = styled.div`
@@ -24,12 +25,14 @@ const RowDiv = styled.div`
 const SelectDiv = styled.div`
   border: 1px solid ${MINT};
   margin-right: 10px;
+  min-width: ${({ min }) => min + "px"};
 `;
 
 const SelectSection = styled.select`
   border: none;
   font-size: 15px;
   font-weight: bold;
+  min-width: ${({ min }) => min + "px"};
 `;
 
 const SelectP = styled.p`
@@ -47,6 +50,7 @@ const SearchSection = styled.div`
   border-radius: 50px;
   box-sizing: border-box;
   background-color: #f8f8f8;
+  min-width: ${({ min }) => min + "px"};
 `;
 
 const SearchInput = styled.p`
@@ -70,7 +74,7 @@ const SearchSubjectList = () => {
       <ContentDiv>
         <RowDiv>
           <SelectDiv>
-            <SelectSection>
+            <SelectSection min={60}>
               <option value="2023">2023</option>
               <option value="2022">2022</option>
               <option value="2021">2021</option>
@@ -78,7 +82,7 @@ const SearchSubjectList = () => {
             <SelectP>년도</SelectP>
           </SelectDiv>
           <SelectDiv>
-            <SelectSection>
+            <SelectSection min={50}>
               <option value="first_semester">1학기</option>
               <option value="summer_season">하기계절</option>
               <option value="second_semester">2학기</option>
@@ -87,13 +91,14 @@ const SearchSubjectList = () => {
           </SelectDiv>
         </RowDiv>
         <RowDiv>
-          <SelectDiv>
+          <SelectDiv min={170}>
             <SelectP>이수구분</SelectP>
             <SelectSection>
               <option value="2023">교양</option>
+              <option value="2023">전공(기초)</option>
             </SelectSection>
           </SelectDiv>
-          <SelectDiv>
+          <SelectDiv min={220}>
             <SelectP>학과</SelectP>
             <SelectSection>
               <option value="1학기">공과대 컴퓨터융합학부</option>
@@ -101,11 +106,11 @@ const SearchSubjectList = () => {
           </SelectDiv>
         </RowDiv>
         <RowDiv>
-          <SearchSection>
+          <SearchSection min={400}>
             <SearchInput
               contentEditable="true"
               placeholder="과목명, 교수명으로 검색해보세요"
-            ></SearchInput>
+            />
             <FaSistrix class="magnify_icon" />
           </SearchSection>
         </RowDiv>
