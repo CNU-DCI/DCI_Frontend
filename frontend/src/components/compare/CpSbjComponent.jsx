@@ -92,7 +92,13 @@ const CpSbjComponent = () => {
         <img
           src={X}
           alt="x"
-          style={{ width: 13, height: 13, margin: 0, padding: 0 }}
+          style={{
+            width: 13,
+            height: 13,
+            margin: 0,
+            padding: 0,
+            display: "inline-block",
+          }}
         />
       </RowDiv>
       <RowDiv>

@@ -51,6 +51,9 @@ const SearchSection = styled.div`
   box-sizing: border-box;
   background-color: #f8f8f8;
   min-width: ${({ min }) => min + "px"};
+  display: flex;
+  justify-content: center;
+  place-items: center;
 `;
 
 const SearchInput = styled.p`

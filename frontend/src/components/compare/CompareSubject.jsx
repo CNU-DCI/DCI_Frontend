@@ -5,8 +5,7 @@ import Add from "img/Add.png";
 
 const CompareSubjectDiv = styled.div`
   width: 80%;
-  height: 30vh;
-  padding-bottom: 50px;
+  height: 33vh;
 `;
 
 const CompareTitle = styled.p`
@@ -28,13 +27,15 @@ const CompareComponentDiv = styled.div`
   white-space: nowrap;
 `;
 
-const AddSubjectDiv = styled.div`
-  width: 30px;
-  height: 95%;
-  display: inline-block;
-`;
+const CompareSubject = ({ outer }) => {
+  const MoveSbjListPage = () => {
+    outer.current.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
 
-const CompareSubject = () => {
   return (
     <CompareSubjectDiv>
       <CompareTitle>데이터 비교</CompareTitle>
@@ -48,6 +49,7 @@ const CompareSubject = () => {
           src={Add}
           alt="add"
           style={{ width: 20, verticalAlign: "middle" }}
+          onClick={MoveSbjListPage}
         />
       </CompareComponentDiv>
     </CompareSubjectDiv>

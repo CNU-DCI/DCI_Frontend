@@ -74,6 +74,8 @@ const ResultHead = styled.div`
   border-radius: 19px;
   margin-bottom: 5px;
   height: 40px;
+  display: flex;
+  place-items: center;
 `;
 
 const ResultBodyDiv = styled.div`
@@ -88,6 +90,8 @@ const ResultBody = styled.div`
   display: inline-block;
   border: 1px solid #d9d9d9;
   margin-bottom: 3px;
+  display: flex;
+  place-items: center;
 `;
 
 const ResultTableP = styled.p`
@@ -125,8 +129,18 @@ const CompareBtn = styled.button`
   margin-right: 5%;
 `;
 
-const Cart = () => {
+const Cart = ({ outer }) => {
   const [result, setResult] = useState(DUMMY_DATA);
+
+  const MoveComparePage = () => {
+    const pageHeight = window.innerHeight;
+    const DIVIDER_HEIGHT = 5;
+    outer.current.scrollTo({
+      top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
   return (
     <ContentDiv>
       <SearchResultDiv>
@@ -181,7 +195,7 @@ const Cart = () => {
       </SearchResultDiv>
       <ButtonsDiv>
         <ResetBtn>리셋</ResetBtn>
-        <CompareBtn>비교하기</CompareBtn>
+        <CompareBtn onClick={MoveComparePage}>비교하기</CompareBtn>
       </ButtonsDiv>
     </ContentDiv>
   );

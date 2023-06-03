@@ -72,6 +72,8 @@ const ResultHead = styled.div`
   border-radius: 19px;
   margin-bottom: 5px;
   height: 40px;
+  display: flex;
+  place-items: center;
 `;
 
 const ResultBodyDiv = styled.div`
@@ -86,6 +88,8 @@ const ResultBody = styled.div`
   display: inline-block;
   border: 1px solid #d9d9d9;
   margin-bottom: 3px;
+  display: flex;
+  place-items: center;
 `;
 
 const ResultTableP = styled.p`
