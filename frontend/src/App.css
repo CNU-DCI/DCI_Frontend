@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+/* nomalize */
+/* html{
+  background-color: #ffffff;
+  color: #333333;
+}
+/* 폰트 설정 */
+/* html > body{
+  font-family: "맑은 고딕";
+}  */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a{
+  text-decoration: none;
+  color: inherit;
+}
+ul, li{
+  list-style: none;
+}
+img{
+  width: 100%;
+  display: block;
+}
