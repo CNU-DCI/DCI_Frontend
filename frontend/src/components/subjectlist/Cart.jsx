@@ -65,6 +65,8 @@ const ResultTableDiv = styled.div`
 
 const ResultTableBody = styled.div`
   width: 100%;
+  height: 15vh;
+  overflow-y: scroll;
 `;
 
 const ResultHead = styled.div`
@@ -73,7 +75,7 @@ const ResultHead = styled.div`
   color: white;
   border-radius: 19px;
   margin-bottom: 5px;
-  height: 40px;
+  height: 30px;
   display: flex;
   place-items: center;
 `;
@@ -85,7 +87,7 @@ const ResultBodyDiv = styled.div`
 
 const ResultBody = styled.div`
   width: 95%;
-  height: 40px;
+  height: 30px;
   border-radius: 19px;
   display: inline-block;
   border: 1px solid #d9d9d9;
@@ -162,7 +164,7 @@ const Cart = ({ outer }) => {
               <ResultTableP style={{ width: "10%" }}>담당교수</ResultTableP>
             </ResultHead>
           )}
-          <ResultTableBody>
+          <ResultTableBody className="resultTable">
             {result.map((subjects, idx) => (
               <ResultBodyDiv>
                 <ResultBody>

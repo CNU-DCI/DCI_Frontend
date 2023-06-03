@@ -31,7 +31,9 @@ const SubjectListDiv = styled.div`
 const SubjectList = () => {
   const outerDivRef = useRef();
 
+  /*
   useEffect(() => {
+
     const wheelHandler = (e) => {
       e.preventDefault();
       const { deltaY } = e;
@@ -77,12 +79,14 @@ const SubjectList = () => {
         }
       }
     };
+
     const outerDivRefCurrent = outerDivRef.current;
     outerDivRefCurrent.addEventListener("wheel", wheelHandler);
     return () => {
       outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
     };
   }, []);
+  */
 
   return (
     <>

@@ -80,6 +80,7 @@ const TimeTextDiv = styled.div`
 const DataP = styled.p`
   font-size: 18px;
   font-weight: bold;
+  line-height: 60px;
 `;
 
 const CpSbjComponent = () => {

@@ -30,11 +30,17 @@
   height: 5px;
 }
 
-.comparesbj::-webkit-scrollbar-thumb {
+.resultTable::-webkit-scrollbar {
+  width: 5px;
+}
+
+.comparesbj::-webkit-scrollbar-thumb,
+.resultTable::-webkit-scrollbar-thumb {
   background: #50d2e3;
   border-radius: 10px;
 }
 
-.comparesbj::-webkit-scrollbar-track {
+.comparesbj::-webkit-scrollbar-track,
+.resultTable::-webkit-scrollbar-track {
   background: rgba(33, 122, 244, 0.1);
 }
