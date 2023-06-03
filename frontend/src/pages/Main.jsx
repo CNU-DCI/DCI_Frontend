@@ -10,6 +10,7 @@ const Layout80vw = styled.div`
 `;
 
 
+
 const Main = () => {
   return (
     <>
@@ -17,7 +18,6 @@ const Main = () => {
 
       <img src={slide01} style={{ width: "100vw" }}></img>
       <Layout80vw>
-        
       </Layout80vw>
 
     </>
