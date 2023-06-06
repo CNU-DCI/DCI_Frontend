@@ -3,6 +3,7 @@ import { FaSistrix } from "react-icons/fa";
 import header from "img/header.png";
 
 
+
 const MenuArea = styled.div`
   display: flex;
   position: absolute;
