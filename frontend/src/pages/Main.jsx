@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { Navbar } from "components/navbar/index";
 import { Dday } from "components/Dday/index";
@@ -7,26 +7,17 @@ import { ReactComponent as Award } from "img/Award.svg";
 import { ReactComponent as Search } from "img/Search.svg";
 import { ReactComponent as Computer } from "img/Computer.svg";
 
-
-
-
-
 const Layout80vw = styled.div`
   width: 80vw;
-  margin: 0 auto
+  margin: 0 auto;
 `;
-
 
 const Icons = styled.div`
   width: 5vw;
   margin: 0 auto;
-`
-
+`;
 
 const Main = () => {
-  
-
-
   return (
     <>
       <Navbar />
@@ -35,18 +26,16 @@ const Main = () => {
       <Layout80vw>
         <Dday />
 
-      
         <Icons>
-          <Award/>
+          <Award />
         </Icons>
         <Icons>
-          <Search/>
+          <Search />
         </Icons>
         <Icons>
-          <Computer/>
+          <Computer />
         </Icons>
       </Layout80vw>
-
     </>
   );
 };
