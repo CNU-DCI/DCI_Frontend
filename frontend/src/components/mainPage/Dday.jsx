@@ -39,7 +39,6 @@ const DdayContainer = styled.div`
   color: white;
   display: flex;
   align-items: center;
-  margin-bottom: 8vw;
 ` 
 const DdayUl = styled.ul`
   width: 100%;
@@ -54,7 +53,7 @@ const DdayUl = styled.ul`
 `
 
 const SDdayLi = styled.li`
-  width: 20vw;
+  width: 18vw;
   font-size: 1.2rem;
   text-align: center;
 `
@@ -93,7 +92,7 @@ const Dday = () => {
     if(count === Dday_dummy.length - 1){
       setCount(0);
     }
-  }, 5000);
+  }, 4000);
 
 
 
