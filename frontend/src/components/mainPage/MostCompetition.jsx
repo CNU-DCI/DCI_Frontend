@@ -168,7 +168,7 @@ const MostCompetition = () => {
 
   console.log(mostCompetition.high[0].id)
   return(
-    <Layout60vw style={{backgroundColor: "yellow"}}>
+    <Layout60vw>
       <Icons>
         <Award />
       </Icons>

@@ -60,7 +60,7 @@ const options = {
   rotations: 2,
   rotationAngles: [0, 0],
 };
-const size = [600, 400];
+const size = [700, 500];
 
 
 const Keywords = () => {

@@ -14,12 +14,14 @@ export const Layout80vw = styled.div`
 
 export const Layout60vw = styled.div`
   width: 60vw;
-  height: 65vh;
   margin: 0 auto;
   text-align: center;
-  overflow: hidden;
+  
+  &{
+    margin-top: 13vw;
+  }
 `;
 
 export const MainContainer = styled.div`
-  margin-top: 3vw;
+  margin-top: 5vw;
 `
