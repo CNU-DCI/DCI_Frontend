@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Main, SubjectList } from "./pages";
+import { Main, Popup, SubjectList } from "./pages";
 import styled from "@emotion/styled";
-import './App.css';
+import "./App.css";
 
 const Background = styled.div`
   width: 100%;
@@ -17,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/subjectList" element={<SubjectList />} />
+          <Route path="/subjectDetail" element={<Popup />} />
         </Routes>
       </BrowserRouter>
     </Background>
