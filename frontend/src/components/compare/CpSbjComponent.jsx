@@ -83,9 +83,9 @@ const DataP = styled.p`
   line-height: 60px;
 `;
 
-const CpSbjComponent = () => {
+const CpSbjComponent = ({ key, data }) => {
   return (
-    <CompareSbjDiv>
+    <CompareSbjDiv key={key}>
       <RowDiv>
         <ColumnDiv>
           <CompeteDiv>높은 경쟁률</CompeteDiv>

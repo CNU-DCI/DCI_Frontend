@@ -26,7 +26,7 @@ const CompareComponentDiv = styled.div`
   white-space: nowrap;
 `;
 
-const CompareSubject = ({ outer }) => {
+const CompareSubject = ({ outer, result }) => {
   const MoveSbjListPage = () => {
     outer.current.scrollTo({
       top: 0,
@@ -39,11 +39,9 @@ const CompareSubject = ({ outer }) => {
     <CompareSubjectDiv>
       <CompareTitle>데이터 비교</CompareTitle>
       <CompareComponentDiv className="comparesbj">
-        <CpSbjComponent />
-        <CpSbjComponent />
-        <CpSbjComponent />
-        <CpSbjComponent />
-        <CpSbjComponent />
+        {result.map((tmp, idx) => {
+          <CpSbjComponent key={idx} data={tmp} />;
+        })}
         <img
           src={Add}
           alt="add"
