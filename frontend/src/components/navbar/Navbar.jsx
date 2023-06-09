@@ -29,7 +29,7 @@ const SrcBox = styled.div`
   display: flex;
   align-items: center;
 `;
-const SearchInput = styled.p`
+const SearchInput = styled.input`
   color: #072a5f;
   font-size: 0.8rem;
   margin-left: 10%;
@@ -43,7 +43,7 @@ const SearchInput = styled.p`
 
 const Navbar = () => {
   return (
-    <div style={{ position: "fixed" }}>
+    <div style={{ position: "fixed", zIndex: "111"}}>
       <img src={header} style={{ width: "100vw" }}></img>
       <MenuArea>
         <a href="/">홈</a>
