@@ -4,6 +4,8 @@ import {Icons} from 'constants/layout';
 import {Layout60vw} from 'constants/layout';
 import {MainContainer} from 'constants/layout';
 import { ReactComponent as Award } from "img/Award.svg";
+import * as Scroll from 'react-scroll';
+import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 
 const mostCompetition_dummy = {
@@ -147,21 +149,41 @@ const CompetitionContainer = styled.div`
   }
 `
 
-const HighCompetition = styled.div`
+const Competition = styled.div`
   border: 2px solid #FFD4D4;
-`
-const LowCompetition = styled.div`
-  border: 2px solid #78AEFF;
+  &:last-child{
+    border: 2px solid #B9D5FF;
+  }
+
+  h3{
+    padding: 0.7vw 0;
+    font-size: 20px;
+    background-color: #FFD4D4;
+  }
+  &:last-child h3{
+    background-color: #B9D5FF;
+  }
 `
 const CompetitionUl = styled.ul`
-  li:last-child{
+  li:nth-child(5n){
     border: 0;
   }
+  height: 320px;
+  overflow: hidden;
 `
 const CompetitionLi = styled.li`
   border-bottom: 1px solid black;
-  padding: 10px;
+  height: 60px;
+  line-height: 60px;
+  font-size: 16px;
+  margin: 0 40px;
 
+  &:first-child{
+    margin-top: 10px;
+  }
+  &:nth-child(5n){
+    margin-bottom: 10px;
+  }
 `
 const MostCompetition = () => {
   const [mostCompetition, setdata] = useState(mostCompetition_dummy);
@@ -177,9 +199,10 @@ const MostCompetition = () => {
 
       <MainContainer>
         <CompetitionContainer>
-          <HighCompetition>
+          <Competition>
             <h3>🔥경쟁률 가장 높은 과목🔥</h3>
-            <ul>
+            
+            <CompetitionUl>
               {
                 mostCompetition.high.map((most, idx) => (
                   <CompetitionLi>{most.name}</CompetitionLi>
@@ -192,18 +215,18 @@ const MostCompetition = () => {
                 ))
               }
                */}
-            </ul>
-          </HighCompetition>
-          <LowCompetition>
+            </CompetitionUl>
+          </Competition>
+          <Competition>
             <h3>💧경쟁률 가장 낮은 과목💧</h3>
-            <ul>
+            <CompetitionUl>
               {
                 mostCompetition.low.map((most, idx) => (
                   <CompetitionLi>{most.name}</CompetitionLi>
                 ))
               }
-            </ul>
-          </LowCompetition>
+            </CompetitionUl>
+          </Competition>
         </CompetitionContainer>
       </MainContainer>
     </Layout60vw>

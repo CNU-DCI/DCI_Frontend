@@ -18,7 +18,7 @@ export const Layout60vw = styled.div`
   text-align: center;
   
   &{
-    margin-top: 13vw;
+    margin-top: 10vw;
   }
 `;
 
