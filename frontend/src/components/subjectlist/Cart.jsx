@@ -2,26 +2,6 @@ import styled from "@emotion/styled";
 import { FaShoppingBag, FaTrashAlt } from "react-icons/fa";
 
 import "../../styles/SubjectList.css";
-import { useState } from "react";
-
-const DUMMY_DATA = [
-  {
-    subject: "알고리즘",
-    grade: 3,
-    sbjnum: "1215-1003",
-    department: "공과대 컴퓨터융합학부",
-    classification: "전공(기초)",
-    professor: "김교수",
-  },
-  {
-    subject: "자료구조",
-    grade: 2,
-    sbjnum: "1215-1004",
-    department: "공과대 컴퓨터융합학부",
-    classification: "전공(기초)",
-    professor: "박교수",
-  },
-];
 
 const ContentDiv = styled.div`
   width: 100%;
@@ -131,9 +111,7 @@ const CompareBtn = styled.button`
   margin-right: 5%;
 `;
 
-const Cart = ({ outer }) => {
-  const [result, setResult] = useState(DUMMY_DATA);
-
+const Cart = ({ outer, result }) => {
   const MoveComparePage = () => {
     const pageHeight = window.innerHeight;
     const DIVIDER_HEIGHT = 5;
@@ -143,6 +121,12 @@ const Cart = ({ outer }) => {
       behavior: "smooth",
     });
   };
+
+  const removeItem = (e) => {
+    const idx = e.currentTarget.dataset.idx;
+    console.log(idx);
+  };
+
   return (
     <ContentDiv>
       <SearchResultDiv>
@@ -166,7 +150,7 @@ const Cart = ({ outer }) => {
           )}
           <ResultTableBody className="resultTable">
             {result.map((subjects, idx) => (
-              <ResultBodyDiv>
+              <ResultBodyDiv key={idx}>
                 <ResultBody>
                   <ResultTableP style={{ width: "25%" }}>
                     {subjects.subject}
@@ -188,7 +172,12 @@ const Cart = ({ outer }) => {
                   </ResultTableP>
                 </ResultBody>
                 <IconDiv>
-                  <FaTrashAlt size="24" class="trash_icon" />
+                  <FaTrashAlt
+                    size="24"
+                    class="trash_icon"
+                    data-idx={idx}
+                    onClick={removeItem}
+                  />
                 </IconDiv>
               </ResultBodyDiv>
             ))}

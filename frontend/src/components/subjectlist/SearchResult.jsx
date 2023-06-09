@@ -2,34 +2,6 @@ import styled from "@emotion/styled";
 import { FaSistrix, FaShoppingBag } from "react-icons/fa";
 
 import "../../styles/SubjectList.css";
-import { useState } from "react";
-
-const DUMMY_DATA = [
-  {
-    subject: "알고리즘",
-    grade: 3,
-    sbjnum: "1215-1003",
-    department: "공과대 컴퓨터융합학부",
-    classification: "전공(기초)",
-    professor: "김교수",
-  },
-  {
-    subject: "자료구조",
-    grade: 2,
-    sbjnum: "1215-1004",
-    department: "공과대 컴퓨터융합학부",
-    classification: "전공(기초)",
-    professor: "박교수",
-  },
-  {
-    subject: "자료구조",
-    grade: 2,
-    sbjnum: "1215-1004",
-    department: "공과대 컴퓨터융합학부",
-    classification: "전공(기초)",
-    professor: "박교수",
-  },
-];
 
 const ContentDiv = styled.div`
   width: 100%;
@@ -115,8 +87,11 @@ const IconDiv = styled.div`
   margin: auto;
 `;
 
-const SearchResult = () => {
-  const [result, setResult] = useState(DUMMY_DATA);
+const SearchResult = ({ result, addCart }) => {
+  const PutIn = (e) => {
+    const idx = e.currentTarget.dataset.idx;
+    addCart(idx);
+  };
   return (
     <ContentDiv>
       <SearchResultDiv>
@@ -140,7 +115,7 @@ const SearchResult = () => {
           )}
           <ResultTableBody className="resultTable">
             {result.map((subjects, idx) => (
-              <ResultBodyDiv>
+              <ResultBodyDiv key={idx}>
                 <ResultBody>
                   <ResultTableP style={{ width: "25%" }}>
                     {subjects.subject}
@@ -162,7 +137,13 @@ const SearchResult = () => {
                   </ResultTableP>
                 </ResultBody>
                 <IconDiv>
-                  <FaShoppingBag size="24" class="shopping_icon" />
+                  <FaShoppingBag
+                    data-idx={idx}
+                    size="24"
+                    class="shopping_icon"
+                    onClick={PutIn}
+                    style={{ cursor: "pointer" }}
+                  />
                 </IconDiv>
               </ResultBodyDiv>
             ))}
