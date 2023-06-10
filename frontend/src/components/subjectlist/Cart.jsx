@@ -74,6 +74,9 @@ const ResultBody = styled.div`
   margin-bottom: 3px;
   display: flex;
   place-items: center;
+  :hover {
+    background-color: #fffddd;
+  }
 `;
 
 const ResultTableP = styled.p`
@@ -111,20 +114,32 @@ const CompareBtn = styled.button`
   margin-right: 5%;
 `;
 
-const Cart = ({ outer, result }) => {
-  const MoveComparePage = () => {
-    const pageHeight = window.innerHeight;
-    const DIVIDER_HEIGHT = 5;
-    outer.current.scrollTo({
-      top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
-      left: 0,
-      behavior: "smooth",
-    });
+const Cart = ({ outer, result, setResult }) => {
+  const moveComparePage = () => {
+    if (result.length !== 0) {
+      const pageHeight = window.innerHeight;
+      const DIVIDER_HEIGHT = 5;
+      outer.current.scrollTo({
+        top: pageHeight,
+        left: 0,
+        behavior: "smooth",
+      });
+    } else {
+      window.alert("장바구니가 비어있습니다.");
+    }
   };
 
   const removeItem = (e) => {
     const idx = e.currentTarget.dataset.idx;
     console.log(idx);
+  };
+
+  const removeResults = () => {
+    if (result.length !== 0) {
+      setResult([]);
+    } else {
+      window.alert("장가부니가 비어있습니다.");
+    }
   };
 
   return (
@@ -185,8 +200,8 @@ const Cart = ({ outer, result }) => {
         </ResultTableDiv>
       </SearchResultDiv>
       <ButtonsDiv>
-        <ResetBtn>리셋</ResetBtn>
-        <CompareBtn onClick={MoveComparePage}>비교하기</CompareBtn>
+        <ResetBtn onClick={removeResults}>리셋</ResetBtn>
+        <CompareBtn onClick={moveComparePage}>비교하기</CompareBtn>
       </ButtonsDiv>
     </ContentDiv>
   );

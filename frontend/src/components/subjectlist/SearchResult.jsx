@@ -72,6 +72,9 @@ const ResultBody = styled.div`
   margin-bottom: 3px;
   display: flex;
   place-items: center;
+  :hover {
+    background-color: #fffddd;
+  }
 `;
 
 const ResultTableP = styled.p`
@@ -92,6 +95,9 @@ const SearchResult = ({ result, addCart }) => {
     const idx = e.currentTarget.dataset.idx;
     addCart(idx);
   };
+
+  const showDetail = () => {};
+
   return (
     <ContentDiv>
       <SearchResultDiv>
@@ -116,7 +122,7 @@ const SearchResult = ({ result, addCart }) => {
           <ResultTableBody className="resultTable">
             {result.map((subjects, idx) => (
               <ResultBodyDiv key={idx}>
-                <ResultBody>
+                <ResultBody onClick={showDetail}>
                   <ResultTableP style={{ width: "25%" }}>
                     {subjects.subject}
                   </ResultTableP>

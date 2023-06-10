@@ -103,10 +103,10 @@ const CpSbjComponent = ({ key, data }) => {
         />
       </RowDiv>
       <RowDiv>
-        <SubjectTitle>2023 컴퓨터프로그래밍 1</SubjectTitle>
-        <SubjectDetail>1215-1003</SubjectDetail>
+        <SubjectTitle>{data.subject}</SubjectTitle>
+        <SubjectDetail>{data.sbjnum}</SubjectDetail>
       </RowDiv>
-      <SubjectDetail>공과대학 컴퓨터융합학부</SubjectDetail>
+      <SubjectDetail>{data.department}</SubjectDetail>
       <RowDiv>
         <CountDiv>
           <DataP>3명</DataP>

@@ -5,7 +5,7 @@ import Add from "img/Add.png";
 
 const CompareSubjectDiv = styled.div`
   width: 80%;
-  height: 33vh;
+  height: 25vh;
 `;
 
 const CompareTitle = styled.p`
@@ -26,7 +26,7 @@ const CompareComponentDiv = styled.div`
   white-space: nowrap;
 `;
 
-const CompareSubject = ({ outer, result }) => {
+const CompareSubject = ({ outer, results }) => {
   const MoveSbjListPage = () => {
     outer.current.scrollTo({
       top: 0,
@@ -39,9 +39,9 @@ const CompareSubject = ({ outer, result }) => {
     <CompareSubjectDiv>
       <CompareTitle>데이터 비교</CompareTitle>
       <CompareComponentDiv className="comparesbj">
-        {result.map((tmp, idx) => {
-          <CpSbjComponent key={idx} data={tmp} />;
-        })}
+        {results.map((tmp, idx) => (
+          <CpSbjComponent key={idx} data={tmp} />
+        ))}
         <img
           src={Add}
           alt="add"
