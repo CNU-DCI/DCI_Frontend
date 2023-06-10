@@ -17,7 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/subjectList" element={<SubjectList />} />
-          <Route path="/subjectDetail" element={<Popup />} />
+          <Route path="/subject/:subjectId" element={<Popup />} />
         </Routes>
       </BrowserRouter>
     </Background>

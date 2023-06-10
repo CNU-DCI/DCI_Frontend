@@ -6,8 +6,7 @@ import { Navbar } from "components/navbar";
 import Chaveron from "img/Chaveron.png";
 import "styles/SubjectList.css";
 import { useEffect, useRef, useState } from "react";
-
-const DIVIDER_HEIGHT = 5;
+import footer from "img/footer.png";
 
 const OuterDiv = styled.div`
   height: 100vh;
@@ -20,6 +19,7 @@ const OuterDiv = styled.div`
 
 const SubjectListDiv = styled.div`
   width: 100%;
+  height: 100vh;
   padding-top: 4vw;
   box-sizing: border-box;
   display: flex;
@@ -30,6 +30,7 @@ const SubjectListDiv = styled.div`
 
 const DUMMY_DATA = [
   {
+    subjectId: 1,
     subject: "알고리즘",
     grade: 3,
     sbjnum: "1215-1003",
@@ -38,6 +39,7 @@ const DUMMY_DATA = [
     professor: "김교수",
   },
   {
+    subjectId: 2,
     subject: "자료구조",
     grade: 2,
     sbjnum: "1215-1004",
@@ -46,6 +48,7 @@ const DUMMY_DATA = [
     professor: "박교수",
   },
   {
+    subjectId: 3,
     subject: "웹프로그래밍",
     grade: 2,
     sbjnum: "1215-1004",
@@ -79,12 +82,13 @@ const SubjectList = () => {
           <SearchSubjectList />
           <SearchResult result={results} addCart={addCart} />
           <img src={Chaveron} alt="Chaveron" class="chaveron_icon" />
-          <Cart outer={outerDivRef} result={cart} />
+          <Cart outer={outerDivRef} result={cart} setResult={setCart} />
         </SubjectListDiv>
         <SubjectListDiv>
-          <CompareSubject outer={outerDivRef} result={results} />
+          <CompareSubject outer={outerDivRef} results={cart} />
           <YearCompare />
         </SubjectListDiv>
+        <img src={footer} alt="footer" />
       </OuterDiv>
     </>
   );
