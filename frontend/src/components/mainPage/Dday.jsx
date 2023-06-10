@@ -92,7 +92,7 @@ const Dday = () => {
     if(count === Dday_dummy.length - 1){
       setCount(0);
     }
-  }, 3500);
+  }, 4000);
 
 
 

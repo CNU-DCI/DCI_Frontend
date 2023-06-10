@@ -1,3 +1,4 @@
+import React, { useEffect, useRef, useState} from "react";
 import styled from "@emotion/styled";
 import { FaSistrix } from "react-icons/fa";
 import header from "img/header.png";
@@ -31,6 +32,7 @@ const SrcBox = styled.div`
 `;
 const SearchInput = styled.input`
   color: #072a5f;
+  border:none;
   font-size: 0.8rem;
   margin-left: 10%;
   width: 85%;
@@ -41,7 +43,28 @@ const SearchInput = styled.input`
   }
 `;
 
+const handleSrc = () => {
+  //props 넘기기(두글자 이상일때만)
+
+}
+
 const Navbar = () => {
+  const [srcContent, setSrcContent] = useState('');
+  const updateSearchBox = e => setSrcContent(e.target.value);
+
+  const Srcbox = useRef();
+
+  const handleSrc = () => {
+    //두 글자 이상일때만 props 던지기
+    const props = Srcbox.current.value;
+    if(props.length < 2){
+      alert("두 글자 이상을 입력해주세요")
+    } else{
+      
+    }
+    console.log(props)
+  }
+
   return (
     <div style={{ position: "fixed", zIndex: "111"}}>
       <img src={header} style={{ width: "100vw" }}></img>
@@ -53,8 +76,16 @@ const Navbar = () => {
             contentEditable="true"
             placeholder="과목명으로 검색하기"
             maxLength="10"
+
+            value={srcContent}
+            onChange={updateSearchBox}
+
+            ref={Srcbox}
           ></SearchInput>
-          <FaSistrix color="#072A5F" style={{ marginRight: "10px" }} />
+          <FaSistrix style={{ marginRight: "10px", color:"#072A5F" }}
+          
+          onClick={handleSrc}
+          />
         </SrcBox>
       </MenuArea>
     </div>
