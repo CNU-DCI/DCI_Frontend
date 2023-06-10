@@ -6,6 +6,7 @@ import {MainContainer} from 'constants/layout';
 import { ReactComponent as Award } from "img/Award.svg";
 import * as Scroll from 'react-scroll';
 import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+import { FaAngleDoubleDown } from 'react-icons/fa'
 
 
 const mostCompetition_dummy = {
@@ -139,10 +140,10 @@ console.log(mostCompetition_dummy.high);
 
 const CompetitionContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 
   div{
-    width: 48%;
+    width: 45%;
     height: 100%;
     background: white;
     font-weight: bold;
@@ -151,6 +152,7 @@ const CompetitionContainer = styled.div`
 
 const Competition = styled.div`
   border: 2px solid #FFD4D4;
+  position: relative; 
   &:last-child{
     border: 2px solid #B9D5FF;
   }
@@ -165,28 +167,43 @@ const Competition = styled.div`
   }
 `
 const CompetitionUl = styled.ul`
-  li:nth-child(5n){
+  height: 300px;
+  overflow: auto;
+  &::-webkit-scrollbar{
+    width: 12px;
+  }
+  &::-webkit-scrollbar-thumb{
+    background: linear-gradient(#FFFAE1, #f64435);
+    border-radius: 25px;    
+  }
+  &:last-child::-webkit-scrollbar-thumb{
+    background: linear-gradient(#FFFAE1, #B9D5FF);
+    border-radius: 25px;    
+  }
+  &::-webkit-scrollbar-track{
+    background-color: #F0F0F0;
+  }
+
+  li:last-child{
     border: 0;
   }
-  height: 320px;
-  overflow: hidden;
 `
 const CompetitionLi = styled.li`
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #A4A4A4;
   height: 60px;
   line-height: 60px;
   font-size: 16px;
   margin: 0 40px;
+  display: flex;
 
-  &:first-child{
-    margin-top: 10px;
+  p{
+    margin-left: 30px;
   }
-  &:nth-child(5n){
-    margin-bottom: 10px;
-  }
+  
 `
 const MostCompetition = () => {
   const [mostCompetition, setdata] = useState(mostCompetition_dummy);
+
 
   console.log(mostCompetition.high[0].id)
   return(
@@ -201,31 +218,45 @@ const MostCompetition = () => {
         <CompetitionContainer>
           <Competition>
             <h3>🔥경쟁률 가장 높은 과목🔥</h3>
-            
-            <CompetitionUl>
+
+              <CompetitionUl>
               {
                 mostCompetition.high.map((most, idx) => (
-                  <CompetitionLi>{most.name}</CompetitionLi>
+                  idx <= 2
+                  ? <CompetitionLi style={{color:"#FF3838"}}>
+                      <p>{idx + 1}</p>
+                      <p>{most.name}</p>
+                    </CompetitionLi>
+                  : <CompetitionLi>
+                      <p>{idx + 1}</p><p>{most.name}</p>
+                    </CompetitionLi>
                 ))
               }
-              {/* 
-              {
-                mostCompetition.high.map((id, name) => (
-                  <CompetitionLi>{name}</CompetitionLi>
-                ))
-              }
-               */}
-            </CompetitionUl>
+              </CompetitionUl>
+              <FaAngleDoubleDown 
+              style={{zIndex:"10", position:"absolute", bottom:"-15px", left:"50%", transform:"translateX(-50%)", color:"#FF3838", fontSize:"30px"}}
+              />
+            
           </Competition>
           <Competition>
             <h3>💧경쟁률 가장 낮은 과목💧</h3>
             <CompetitionUl>
               {
                 mostCompetition.low.map((most, idx) => (
-                  <CompetitionLi>{most.name}</CompetitionLi>
+                  idx <= 2
+                  ? <CompetitionLi>
+                      <p style={{color:"#1F77FB"}}>{idx + 1}</p>
+                      <p style={{color:"#1F77FB"}}>{most.name}</p>
+                    </CompetitionLi>
+                  : <CompetitionLi>
+                      <p>{idx + 1}</p><p>{most.name}</p>
+                    </CompetitionLi>
                 ))
               }
             </CompetitionUl>
+            <FaAngleDoubleDown 
+              style={{zIndex:"10", position:"absolute", bottom:"-15px", left:"50%", transform:"translateX(-50%)", color:"#1F77FB", fontSize:"30px"}}
+              />
           </Competition>
         </CompetitionContainer>
       </MainContainer>
