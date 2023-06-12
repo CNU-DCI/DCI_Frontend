@@ -2,9 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import {Icons} from 'constants/layout';
 import slide01 from "img/slide01.png";
+import slide02 from "img/slide02.png";
+import slide03 from "img/slide03.png";
 import {FaShareSquare} from 'react-icons/fa'
 
-const SliderImg = [slide01, slide01, slide01];
+const SliderImg = [slide01, slide02, slide03];
 
 const SliderBox = styled.div`
   position: relative;
@@ -93,7 +95,7 @@ const Slider = () => {
       setLocation(0);
       setIdx(0);
     }
-  }, 3500);
+  }, 5000);
 
 
   return(
@@ -104,13 +106,17 @@ const Slider = () => {
             transition: "1s ease",
           }}>
             {SliderImg.map((img, idx) =>
-              <Slide>
-                <img src={slide01} style={{ width: "100vw" }}></img>
-                <SlideBtn href="/subjectList">
-                  <p>내 과목 경쟁률 알아보기</p>
-                  <FaShareSquare style={{fontSize:"25px"}}></FaShareSquare>
-                </SlideBtn>
-              </Slide>
+              idx == 0
+              ? <Slide>
+                  <img src={img} style={{ width: "100vw" }}></img>
+                  <SlideBtn href="/subjectList">
+                    <p>내 과목 경쟁률 알아보기</p>
+                    <FaShareSquare style={{fontSize:"25px"}}></FaShareSquare>
+                  </SlideBtn>
+                </Slide>
+              : <Slide>
+                  <img src={img} style={{ width: "100vw" }}></img>
+                </Slide>
             )}
           </Slides>
           <Pagination>
