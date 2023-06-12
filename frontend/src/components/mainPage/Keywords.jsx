@@ -1,16 +1,15 @@
-import React, { useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
-import ReactWordcloud from 'react-wordcloud';
-import { Icons } from 'constants/layout';
+import ReactWordcloud from "react-wordcloud";
+import { Icons } from "constants/layout";
 import { Layout60vw } from "constants/layout";
-import { MainContainer } from 'constants/layout';
+import { MainContainer } from "constants/layout";
 import { ReactComponent as Search } from "img/Search.svg";
-
 
 const keywords_dummy = [
   {
     text: "인간관계론",
-    value: 1
+    value: 1,
   },
   {
     text: "공학윤리",
@@ -47,49 +46,47 @@ const keywords_dummy = [
   {
     text: "행정학원론",
     value: 10,
-  }
+  },
 ];
 
 const callbacks = {
-  getWordColor: word => word.value > 50 ? "blue" : "red",
+  getWordColor: (word) => (word.value > 50 ? "blue" : "red"),
   onWordClick: console.log,
   onWordMouseOver: console.log,
-  getWordTooltip: word => `${word.text} (${word.value}) [${word.value > 50 ? "good" : "bad"}]`,
-}
+  getWordTooltip: (word) =>
+    `${word.text} (${word.value}) [${word.value > 50 ? "good" : "bad"}]`,
+};
 const options = {
   rotations: 2,
   rotationAngles: [0, 0],
 };
 const size = [700, 500];
 
-
 const Keywords = () => {
   const [keywords, setKeyword] = useState(keywords_dummy);
 
-  return(
+  return (
     <Layout60vw>
       <Icons>
         <Search></Search>
       </Icons>
       <h2>많이 검색된 키워드</h2>
-      <h5 style={{color: "#616161"}}>2023.05.27. 16:00시 기준</h5>
+      <h5 style={{ color: "#616161" }}>2023.05.27. 16:00시 기준</h5>
 
       <MainContainer>
         {/* {keywords.map((keyword, idx) => (
             <h1>{keyword.text}</h1>
           ))} */}
 
-          <ReactWordcloud
+        <ReactWordcloud
           callbacks={callbacks}
           options={options}
           size={size}
           words={keywords_dummy}
         />
-
-        
       </MainContainer>
     </Layout60vw>
   );
-}
+};
 
 export default Keywords;
