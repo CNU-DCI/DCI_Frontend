@@ -3,6 +3,7 @@ import { Route, Link, useNavigate } from 'react-router-dom';
 import styled from "@emotion/styled";
 import { FaSistrix } from "react-icons/fa";
 import header from "img/header.png";
+import { useLocation } from 'react-router-dom'; 
 
 const MenuArea = styled.div`
   display: flex;
@@ -13,6 +14,7 @@ const MenuArea = styled.div`
   margin: 0 auto;
   color: rgba(255, 255, 255, 0.8);
   font-size: 1.2rem;
+  align-items: center;
 
   a {
     margin-right: 25px;
@@ -26,6 +28,7 @@ const MenuArea = styled.div`
 `;
 const SrcBox = styled.div`
   width: 12vw;
+  height: 24px;
   background-color: white;
   border-radius: 15px;
   display: flex;
@@ -74,6 +77,9 @@ const Navbar = () => {
     }
   }
 
+  const location = useLocation();
+  console.log(location);
+
   return (
     <div style={{ position: "fixed", zIndex: "111"}}>
       <img src={header} style={{ width: "100vw" }}></img>
@@ -83,22 +89,27 @@ const Navbar = () => {
       <MenuArea>
         <Link to="/">홈</Link>
         <Link to="/subjectList">과목검색</Link>
-        <SrcBox>
-          <SearchInput
-            contentEditable="true"
-            placeholder="과목명으로 검색하기"
-            maxLength="10"
+        {
+          location.pathname == "/"
+          ? <SrcBox>
+              <SearchInput
+                contentEditable="true"
+                placeholder="과목명으로 검색하기"
+                maxLength="10"
 
-            value={srcContent}
-            onChange={updateSearchBox}
+                value={srcContent}
+                onChange={updateSearchBox}
 
-            ref={Srcbox}
-          ></SearchInput>
-          <FaSistrix style={{ marginRight: "10px", color:"#072A5F" }}
-          
-          onClick={handleSrc}
-          />
-        </SrcBox>
+                ref={Srcbox}
+              ></SearchInput>
+              <FaSistrix style={{ marginRight: "10px", color:"#072A5F" }}
+              
+              onClick={handleSrc}
+              />
+            </SrcBox>
+          : <p style={{color:"yellow", fontSize:"16px"}}>다음수강신청까지 D-255</p>
+        }
+        
       </MenuArea>
     </div>
   );
