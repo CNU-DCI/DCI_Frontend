@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Route, Link, useNavigate } from 'react-router-dom';
 import styled from "@emotion/styled";
 import {Icons} from 'constants/layout';
 import {Layout60vw} from 'constants/layout';
 import {MainContainer} from 'constants/layout';
 import { ReactComponent as Award } from "img/Award.svg";
-import * as Scroll from 'react-scroll';
-import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 import { FaAngleDoubleDown } from 'react-icons/fa'
 
 
@@ -136,7 +135,6 @@ const mostCompetition_dummy = {
   ],
 }
 
-console.log(mostCompetition_dummy.high);
 
 const CompetitionContainer = styled.div`
   display: flex;
@@ -158,7 +156,7 @@ const Competition = styled.div`
   }
 
   h3{
-    padding: 0.7vw 0;
+    padding: 1vw 0;
     font-size: 20px;
     background-color: #FFD4D4;
   }
@@ -167,17 +165,14 @@ const Competition = styled.div`
   }
 `
 const CompetitionUl = styled.ul`
-  height: 300px;
+  padding-top: 15px;
+  height: 310px;
   overflow: auto;
   &::-webkit-scrollbar{
     width: 12px;
   }
   &::-webkit-scrollbar-thumb{
     background: linear-gradient(#FFFAE1, #f64435);
-    border-radius: 25px;    
-  }
-  &:last-child::-webkit-scrollbar-thumb{
-    background: linear-gradient(#FFFAE1, #B9D5FF);
     border-radius: 25px;    
   }
   &::-webkit-scrollbar-track{
@@ -188,6 +183,26 @@ const CompetitionUl = styled.ul`
     border: 0;
   }
 `
+
+const CompetitionUlBlue = styled.ul`
+  padding-top: 15px;
+  height: 310px;
+  overflow: auto;
+  &::-webkit-scrollbar{
+    width: 12px;
+  }
+  &::-webkit-scrollbar-thumb{
+    background: linear-gradient(white, #1f77fb);
+    border-radius: 25px;    
+  }
+  &::-webkit-scrollbar-track{
+    background-color: #F0F0F0;
+  }
+
+  li:last-child{
+    border: 0;
+}
+`
 const CompetitionLi = styled.li`
   border-bottom: 1px solid #A4A4A4;
   height: 60px;
@@ -195,7 +210,8 @@ const CompetitionLi = styled.li`
   font-size: 16px;
   margin: 0 40px;
   display: flex;
-
+  cursor: pointer;
+  
   p{
     margin-left: 30px;
   }
@@ -204,8 +220,19 @@ const CompetitionLi = styled.li`
 const MostCompetition = () => {
   const [mostCompetition, setdata] = useState(mostCompetition_dummy);
 
+  const navigate = useNavigate();
+  const mostLi = useRef();
+  
+  const ReceiveProps = e => {
+    const mostName = e.target.textContent;
+    navigate("/subjectList", {
+            state: {
+              srcContents: mostName
+            }
+          });
+  }
 
-  console.log(mostCompetition.high[0].id)
+
   return(
     <Layout60vw>
       <Icons>
@@ -223,12 +250,13 @@ const MostCompetition = () => {
               {
                 mostCompetition.high.map((most, idx) => (
                   idx <= 2
-                  ? <CompetitionLi style={{color:"#FF3838"}}>
+                  ? <CompetitionLi onClick={ReceiveProps} style={{color:"#FF3838"}}>
+                      <p>{idx + 1}</p>
+                      <p ref={mostLi}>{most.name}</p>
+                    </CompetitionLi>
+                  : <CompetitionLi onClick={ReceiveProps}>
                       <p>{idx + 1}</p>
                       <p>{most.name}</p>
-                    </CompetitionLi>
-                  : <CompetitionLi>
-                      <p>{idx + 1}</p><p>{most.name}</p>
                     </CompetitionLi>
                 ))
               }
@@ -240,20 +268,20 @@ const MostCompetition = () => {
           </Competition>
           <Competition>
             <h3>💧경쟁률 가장 낮은 과목💧</h3>
-            <CompetitionUl>
+            <CompetitionUlBlue>
               {
                 mostCompetition.low.map((most, idx) => (
                   idx <= 2
-                  ? <CompetitionLi>
-                      <p style={{color:"#1F77FB"}}>{idx + 1}</p>
-                      <p style={{color:"#1F77FB"}}>{most.name}</p>
+                  ? <CompetitionLi onClick={ReceiveProps} style={{color:"#1F77FB"}}>
+                      <p>{idx + 1}</p>
+                      <p>{most.name}</p>
                     </CompetitionLi>
-                  : <CompetitionLi>
+                  : <CompetitionLi onClick={ReceiveProps}>
                       <p>{idx + 1}</p><p>{most.name}</p>
                     </CompetitionLi>
                 ))
               }
-            </CompetitionUl>
+            </CompetitionUlBlue>
             <FaAngleDoubleDown 
               style={{zIndex:"10", position:"absolute", bottom:"-15px", left:"50%", transform:"translateX(-50%)", color:"#1F77FB", fontSize:"30px"}}
               />

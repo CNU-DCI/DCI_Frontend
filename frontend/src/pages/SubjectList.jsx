@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { Cart, SearchResult, SearchSubjectList } from "components/subjectlist";
 import { CompareSubject, YearCompare } from "components/compare";
-
 import { Navbar } from "components/navbar";
 import Chaveron from "img/Chaveron.png";
 import "styles/SubjectList.css";
 import { useEffect, useRef, useState } from "react";
+import { useLocation } from 'react-router-dom'; 
 import footer from "img/footer.png";
 
 const OuterDiv = styled.div`
@@ -58,13 +58,21 @@ const DUMMY_DATA = [
   },
 ];
 
-const SubjectList = () => {
+const SubjectList = () => { 
   const outerDivRef = useRef();
+  
   const [results, setResults] = useState(DUMMY_DATA);
   const [cart, setCart] = useState([]);
+  
+  //props from navbar, mostCom, keyword.jsx
+  const location = useLocation();
+  const [srcContents, setContents] = useState(
+    location.state?.srcContents
+  );
 
   useEffect(() => {
     console.log(cart);
+    console.log(srcContents)
   }, [cart]);
 
   const addCart = (idx) => {

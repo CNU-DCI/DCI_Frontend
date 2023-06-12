@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState} from "react";
+import { Route, Link, useNavigate } from 'react-router-dom';
 import styled from "@emotion/styled";
 import ReactWordcloud from 'react-wordcloud';
 import { Icons } from 'constants/layout';
@@ -47,13 +48,32 @@ const keywords_dummy = [
   {
     text: "행정학원론",
     value: 3,
+  },{
+    text: "인간관계론",
+    value: 1
+  },
+  {
+    text: "공학윤리",
+    value: 1,
+  },
+  {
+    text: "대학영어1",
+    value: 2,
+  },
+  {
+    text: "코딩과 삶",
+    value: 2,
+  },
+  {
+    text: "아프리카 사회와 문화",
+    value: 2,
   }
 ];
 
 const callbacks = {
   // getWordColor: ,
   onWordClick: console.log,
-  onWordMouseOver: console.log,
+  onWordMouseOver: '',
   getWordTooltip: word => ``,
 }
 const options = {
@@ -73,6 +93,17 @@ const WordCloudStyle = styled.div`
 const Keywords = () => {
   const [keywords, setKeyword] = useState(keywords_dummy);
 
+  const navigate = useNavigate();
+
+  const ReceiveProps = e => {
+    const Keyword = e.target.textContent;
+    navigate("/subjectList", {
+            state: {
+              srcContents: Keyword
+            }
+          });
+  }
+
   return(
     <Layout60vw>
       <Icons>
@@ -82,20 +113,17 @@ const Keywords = () => {
       <h5 style={{color: "#616161"}}>2023.05.27. 16:00시 기준</h5>
 
       <MainContainer style={{marginTop: "3vw"}}>
-        {/* {keywords.map((keyword, idx) => (
-            <h1>{keyword.text}</h1>
-          ))} */}
         <WordCloudStyle>
-
           <ReactWordcloud
           callbacks={callbacks}
           options={options}
           size={size}
           words={keywords_dummy}
           minSize={[600, 450]}
+          onClick={ReceiveProps}
 
           style={{display:"inline-block"}}
-        />
+          />
         </WordCloudStyle>
           
       </MainContainer>

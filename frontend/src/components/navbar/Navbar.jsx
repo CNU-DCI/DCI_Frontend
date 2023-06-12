@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState} from "react";
+import { Route, Link, useNavigate } from 'react-router-dom';
 import styled from "@emotion/styled";
 import { FaSistrix } from "react-icons/fa";
 import header from "img/header.png";
@@ -43,34 +44,45 @@ const SearchInput = styled.input`
   }
 `;
 
-const handleSrc = () => {
-  //props 넘기기(두글자 이상일때만)
+const LogoClick = styled.div`
+  width: 18vw;
+  height: 80px;
+  position: absolute;
+  top: 0;
+  left: 10vw;
+`
 
-}
 
 const Navbar = () => {
   const [srcContent, setSrcContent] = useState('');
   const updateSearchBox = e => setSrcContent(e.target.value);
 
   const Srcbox = useRef();
+  const navigate = useNavigate();
 
   const handleSrc = () => {
     //두 글자 이상일때만 props 던지기
-    const props = Srcbox.current.value;
-    if(props.length < 2){
+    const srcContents = Srcbox.current.value;
+    if(srcContents.length < 2){
       alert("두 글자 이상을 입력해주세요")
     } else{
-      
+      navigate("/subjectList", {
+        state: {
+          srcContents: srcContents
+        }
+      });
     }
-    console.log(props)
   }
 
   return (
     <div style={{ position: "fixed", zIndex: "111"}}>
       <img src={header} style={{ width: "100vw" }}></img>
+      <Link to="/">
+        <LogoClick></LogoClick>
+      </Link>
       <MenuArea>
-        <a href="/">홈</a>
-        <a href="/subjectList">과목검색</a>
+        <Link to="/">홈</Link>
+        <Link to="/subjectList">과목검색</Link>
         <SrcBox>
           <SearchInput
             contentEditable="true"
