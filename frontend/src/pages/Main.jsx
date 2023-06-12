@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import {Layout80vw} from 'constants/layout';
 import { Navbar } from "components/navbar/index";
-import { Dday, Credit, Keywords, MostCompetition, Slider} from 'components/mainPage/index'
+import { Dday, Credit, Keywords, MostCompetition, Slider, MainPopup} from 'components/mainPage/index'
 import footer from 'img/footer.png'
 
 
@@ -14,6 +14,7 @@ const Footer = styled.div`
 const Main = () => {
   return (
     <>
+      <MainPopup></MainPopup>
       <Navbar />
       <Slider></Slider>
       <Layout80vw>

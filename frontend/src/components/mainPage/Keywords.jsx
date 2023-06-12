@@ -71,8 +71,7 @@ const keywords_dummy = [
 ];
 
 const callbacks = {
-  // getWordColor: ,
-  onWordClick: console.log,
+  // onWordClick: console.log,
   onWordMouseOver: '',
   getWordTooltip: word => ``,
 }
@@ -96,12 +95,17 @@ const Keywords = () => {
   const navigate = useNavigate();
 
   const ReceiveProps = e => {
-    const Keyword = e.target.textContent;
+    const keyword = e.target.textContent;
     navigate("/subjectList", {
             state: {
-              srcContents: Keyword
+              srcContents: keyword
             }
           });
+  }
+
+  const OnMouseOver = e => {
+    const keyword = e.target.textContent;
+    //add cursor pointer
   }
 
   return(
@@ -119,8 +123,9 @@ const Keywords = () => {
           options={options}
           size={size}
           words={keywords_dummy}
-          minSize={[600, 450]}
+          maxSize={[600, 450]}
           onClick={ReceiveProps}
+          onMouseOver={OnMouseOver}
 
           style={{display:"inline-block"}}
           />
