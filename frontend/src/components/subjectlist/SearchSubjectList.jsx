@@ -56,22 +56,23 @@ const SearchSection = styled.div`
   place-items: center;
 `;
 
-const SearchInput = styled.p`
+const SearchInput = styled.input`
+  margin-left: 5%;
   color: #888888;
   font-size: 14px;
-  padding-left: 5%;
   display: inline-block;
   box-sizing: border-box;
   width: 90%;
   border: none;
-
+  white-space: nowrap;
+  background-color: inherit;
   &:focus {
     outline: none;
     color: black;
   }
 `;
 
-const SearchSubjectList = () => {
+const SearchSubjectList = ({ state }) => {
   return (
     <SearchSubjectDiv>
       <ContentDiv>
@@ -111,9 +112,10 @@ const SearchSubjectList = () => {
         <RowDiv>
           <SearchSection min={400}>
             <SearchInput
-              contentEditable="true"
+              type="text"
               placeholder="과목명, 교수명으로 검색해보세요"
-            />
+              value={state && state.srcContents}
+            ></SearchInput>
             <FaSistrix class="magnify_icon" />
           </SearchSection>
         </RowDiv>

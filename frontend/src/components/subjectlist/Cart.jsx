@@ -2,26 +2,6 @@ import styled from "@emotion/styled";
 import { FaShoppingBag, FaTrashAlt } from "react-icons/fa";
 
 import "../../styles/SubjectList.css";
-import { useState } from "react";
-
-const DUMMY_DATA = [
-  {
-    subject: "알고리즘",
-    grade: 3,
-    sbjnum: "1215-1003",
-    department: "공과대 컴퓨터융합학부",
-    classification: "전공(기초)",
-    professor: "김교수",
-  },
-  {
-    subject: "자료구조",
-    grade: 2,
-    sbjnum: "1215-1004",
-    department: "공과대 컴퓨터융합학부",
-    classification: "전공(기초)",
-    professor: "박교수",
-  },
-];
 
 const ContentDiv = styled.div`
   width: 100%;
@@ -94,6 +74,9 @@ const ResultBody = styled.div`
   margin-bottom: 3px;
   display: flex;
   place-items: center;
+  :hover {
+    background-color: #fffddd;
+  }
 `;
 
 const ResultTableP = styled.p`
@@ -131,18 +114,34 @@ const CompareBtn = styled.button`
   margin-right: 5%;
 `;
 
-const Cart = ({ outer }) => {
-  const [result, setResult] = useState(DUMMY_DATA);
-
-  const MoveComparePage = () => {
-    const pageHeight = window.innerHeight;
-    const DIVIDER_HEIGHT = 5;
-    outer.current.scrollTo({
-      top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
-      left: 0,
-      behavior: "smooth",
-    });
+const Cart = ({ outer, result, setResult }) => {
+  const moveComparePage = () => {
+    if (result.length !== 0) {
+      const pageHeight = window.innerHeight;
+      const DIVIDER_HEIGHT = 5;
+      outer.current.scrollTo({
+        top: pageHeight,
+        left: 0,
+        behavior: "smooth",
+      });
+    } else {
+      window.alert("장바구니가 비어있습니다.");
+    }
   };
+
+  const removeItem = (e) => {
+    const idx = e.currentTarget.dataset.idx;
+    console.log(idx);
+  };
+
+  const removeResults = () => {
+    if (result.length !== 0) {
+      setResult([]);
+    } else {
+      window.alert("장가부니가 비어있습니다.");
+    }
+  };
+
   return (
     <ContentDiv>
       <SearchResultDiv>
@@ -166,7 +165,7 @@ const Cart = ({ outer }) => {
           )}
           <ResultTableBody className="resultTable">
             {result.map((subjects, idx) => (
-              <ResultBodyDiv>
+              <ResultBodyDiv key={idx}>
                 <ResultBody>
                   <ResultTableP style={{ width: "25%" }}>
                     {subjects.subject}
@@ -188,7 +187,12 @@ const Cart = ({ outer }) => {
                   </ResultTableP>
                 </ResultBody>
                 <IconDiv>
-                  <FaTrashAlt size="24" class="trash_icon" />
+                  <FaTrashAlt
+                    size="24"
+                    class="trash_icon"
+                    data-idx={idx}
+                    onClick={removeItem}
+                  />
                 </IconDiv>
               </ResultBodyDiv>
             ))}
@@ -196,8 +200,8 @@ const Cart = ({ outer }) => {
         </ResultTableDiv>
       </SearchResultDiv>
       <ButtonsDiv>
-        <ResetBtn>리셋</ResetBtn>
-        <CompareBtn onClick={MoveComparePage}>비교하기</CompareBtn>
+        <ResetBtn onClick={removeResults}>리셋</ResetBtn>
+        <CompareBtn onClick={moveComparePage}>비교하기</CompareBtn>
       </ButtonsDiv>
     </ContentDiv>
   );

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "styles/SubjectList.css";
 import { MINT } from "constants/color";
 import KakaoMap from "components/map/KakaoMap";
+import { useParams } from "react-router";
 
 const DeviceDiv = styled.div`
   width: 100%;
@@ -177,6 +178,8 @@ const PeriodBtn = styled.button`
 `;
 
 const Popup = () => {
+  const { subjectId } = useParams();
+
   return (
     <DeviceDiv>
       <TitleBackground>
