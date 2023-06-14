@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Main, Popup, SubjectList } from "./pages";
 import styled from "@emotion/styled";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 const Background = styled.div`
@@ -11,6 +12,17 @@ const Background = styled.div`
 `;
 
 function App() {
+    const [message, setMessage] = useState([]);
+    useEffect(() => {
+        fetch("/hi")
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                setMessage(data);
+            });
+    }, []);
+
   return (
     <Background className="App">
       <BrowserRouter>
