@@ -138,7 +138,7 @@ const Cart = ({ outer, result, setResult }) => {
     if (result.length !== 0) {
       setResult([]);
     } else {
-      window.alert("장가부니가 비어있습니다.");
+      window.alert("장바구니가 비어있습니다.");
     }
   };
 

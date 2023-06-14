@@ -111,7 +111,6 @@ const Keywords = () => {
       </Icons>
       <h2>많이 검색된 키워드</h2>
       <h5 style={{ color: "#616161" }}>2023.05.27. 16:00시 기준</h5>
-
       <MainContainer style={{ marginTop: "3vw" }}>
         <WordCloudStyle>
           <ReactWordcloud
