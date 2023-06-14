@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Route, Link, useNavigate } from 'react-router-dom';
 import styled from "@emotion/styled";
 import {Icons} from 'constants/layout';
 import {Layout60vw} from 'constants/layout';
 import {MainContainer} from 'constants/layout';
 import { ReactComponent as Award } from "img/Award.svg";
-import * as Scroll from 'react-scroll';
-import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+import { FaAngleDoubleDown } from 'react-icons/fa'
 
 
 const mostCompetition_dummy = {
@@ -135,14 +135,13 @@ const mostCompetition_dummy = {
   ],
 }
 
-console.log(mostCompetition_dummy.high);
 
 const CompetitionContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 
   div{
-    width: 48%;
+    width: 45%;
     height: 100%;
     background: white;
     font-weight: bold;
@@ -151,12 +150,13 @@ const CompetitionContainer = styled.div`
 
 const Competition = styled.div`
   border: 2px solid #FFD4D4;
+  position: relative; 
   &:last-child{
     border: 2px solid #B9D5FF;
   }
 
   h3{
-    padding: 0.7vw 0;
+    padding: 1vw 0;
     font-size: 20px;
     background-color: #FFD4D4;
   }
@@ -165,30 +165,74 @@ const Competition = styled.div`
   }
 `
 const CompetitionUl = styled.ul`
-  li:nth-child(5n){
+  padding-top: 15px;
+  height: 310px;
+  overflow: auto;
+  &::-webkit-scrollbar{
+    width: 12px;
+  }
+  &::-webkit-scrollbar-thumb{
+    background: linear-gradient(#FFFAE1, #f64435);
+    border-radius: 25px;    
+  }
+  &::-webkit-scrollbar-track{
+    background-color: #F0F0F0;
+  }
+
+  li:last-child{
     border: 0;
   }
-  height: 320px;
-  overflow: hidden;
+`
+
+const CompetitionUlBlue = styled.ul`
+  padding-top: 15px;
+  height: 310px;
+  overflow: auto;
+  &::-webkit-scrollbar{
+    width: 12px;
+  }
+  &::-webkit-scrollbar-thumb{
+    background: linear-gradient(white, #1f77fb);
+    border-radius: 25px;    
+  }
+  &::-webkit-scrollbar-track{
+    background-color: #F0F0F0;
+  }
+
+  li:last-child{
+    border: 0;
+}
 `
 const CompetitionLi = styled.li`
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #A4A4A4;
   height: 60px;
   line-height: 60px;
   font-size: 16px;
   margin: 0 40px;
-
-  &:first-child{
-    margin-top: 10px;
+  display: flex;
+  cursor: pointer;
+  
+  p{
+    margin-left: 30px;
   }
-  &:nth-child(5n){
-    margin-bottom: 10px;
-  }
+  
 `
 const MostCompetition = () => {
   const [mostCompetition, setdata] = useState(mostCompetition_dummy);
 
-  console.log(mostCompetition.high[0].id)
+  const navigate = useNavigate();
+  const mostLi = useRef();
+  
+  const ReceiveProps = e => {
+    const mostName = e.target.textContent;
+    navigate("/subjectList", {
+            state: {
+              srcContents: mostName
+            }
+          });
+  }
+
+
   return(
     <Layout60vw>
       <Icons>
@@ -201,31 +245,46 @@ const MostCompetition = () => {
         <CompetitionContainer>
           <Competition>
             <h3>🔥경쟁률 가장 높은 과목🔥</h3>
-            
-            <CompetitionUl>
+
+              <CompetitionUl>
               {
                 mostCompetition.high.map((most, idx) => (
-                  <CompetitionLi>{most.name}</CompetitionLi>
+                  idx <= 2
+                  ? <CompetitionLi onClick={ReceiveProps} style={{color:"#FF3838"}}>
+                      <p>{idx + 1}</p>
+                      <p ref={mostLi}>{most.name}</p>
+                    </CompetitionLi>
+                  : <CompetitionLi onClick={ReceiveProps}>
+                      <p>{idx + 1}</p>
+                      <p>{most.name}</p>
+                    </CompetitionLi>
                 ))
               }
-              {/* 
-              {
-                mostCompetition.high.map((id, name) => (
-                  <CompetitionLi>{name}</CompetitionLi>
-                ))
-              }
-               */}
-            </CompetitionUl>
+              </CompetitionUl>
+              <FaAngleDoubleDown 
+              style={{zIndex:"10", position:"absolute", bottom:"-15px", left:"50%", transform:"translateX(-50%)", color:"#FF3838", fontSize:"30px"}}
+              />
+            
           </Competition>
           <Competition>
             <h3>💧경쟁률 가장 낮은 과목💧</h3>
-            <CompetitionUl>
+            <CompetitionUlBlue>
               {
                 mostCompetition.low.map((most, idx) => (
-                  <CompetitionLi>{most.name}</CompetitionLi>
+                  idx <= 2
+                  ? <CompetitionLi onClick={ReceiveProps} style={{color:"#1F77FB"}}>
+                      <p>{idx + 1}</p>
+                      <p>{most.name}</p>
+                    </CompetitionLi>
+                  : <CompetitionLi onClick={ReceiveProps}>
+                      <p>{idx + 1}</p><p>{most.name}</p>
+                    </CompetitionLi>
                 ))
               }
-            </CompetitionUl>
+            </CompetitionUlBlue>
+            <FaAngleDoubleDown 
+              style={{zIndex:"10", position:"absolute", bottom:"-15px", left:"50%", transform:"translateX(-50%)", color:"#1F77FB", fontSize:"30px"}}
+              />
           </Competition>
         </CompetitionContainer>
       </MainContainer>

@@ -71,8 +71,7 @@ const keywords_dummy = [
 ];
 
 const callbacks = {
-  // getWordColor: ,
-  onWordClick: console.log,
+  // onWordClick: console.log,
   onWordMouseOver: "",
   getWordTooltip: (word) => ``,
 };
@@ -96,12 +95,17 @@ const Keywords = () => {
   const navigate = useNavigate();
 
   const ReceiveProps = (e) => {
-    const Keyword = e.target.textContent;
+    const keyword = e.target.textContent;
     navigate("/subjectList", {
       state: {
-        srcContents: Keyword,
+        srcContents: keyword,
       },
     });
+  };
+
+  const OnMouseOver = (e) => {
+    const keyword = e.target.textContent;
+    //add cursor pointer
   };
 
   return (
@@ -111,6 +115,7 @@ const Keywords = () => {
       </Icons>
       <h2>많이 검색된 키워드</h2>
       <h5 style={{ color: "#616161" }}>2023.05.27. 16:00시 기준</h5>
+
       <MainContainer style={{ marginTop: "3vw" }}>
         <WordCloudStyle>
           <ReactWordcloud
@@ -118,8 +123,9 @@ const Keywords = () => {
             options={options}
             size={size}
             words={keywords_dummy}
-            minSize={[600, 450]}
+            maxSize={[600, 450]}
             onClick={ReceiveProps}
+            onMouseOver={OnMouseOver}
             style={{ display: "inline-block" }}
           />
         </WordCloudStyle>

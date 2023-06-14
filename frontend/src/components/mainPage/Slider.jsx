@@ -2,9 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import {Icons} from 'constants/layout';
 import slide01 from "img/slide01.png";
+import slide02 from "img/slide02.png";
+import slide03 from "img/slide03.png";
 import {FaShareSquare} from 'react-icons/fa'
+import {FaCaretRight} from 'react-icons/fa'
+import {FaPause} from 'react-icons/fa'
 
-const SliderImg = [slide01, slide01, slide01];
+const SliderImg = [slide01, slide02, slide03];
 
 const SliderBox = styled.div`
   position: relative;
@@ -48,6 +52,7 @@ const Pagination = styled.div`
   position: absolute;
   bottom: 4%;
   left: 11.5%;
+  align-items: center;
 
   div{
     width: 8px;
@@ -58,7 +63,39 @@ const Pagination = styled.div`
     opacity: 0.4;
   } 
 `
+const PlayBtn01 = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 30px;
+  border-radius: 20px;
+  background-color: white;
+  opacity: 0.8;
+  border: 2px solid #072A5F;
+  font-weight: bold;
 
+  p{
+    margin-right: 2px;
+  }
+`
+const PlayBtn02 = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 30px;
+  border-radius: 20px;
+  background-color: white;
+  opacity: 0.8;
+  border: 2px solid #072A5F;
+  font-weight: bold;
+
+  p{
+    padding-left: 14px;
+    margin-right: -5px;
+  }
+`
 
 
 
@@ -85,6 +122,7 @@ const Slider = () => {
     }, [delay]); // delay가 바뀔 때마다 새로 실행된다.
   }
 
+  const [isPlaying, setIsPlaying] = useState(true);
   useInterval(() => {
     setLocation(location - 100);
     setIdx(sliderIdx + 1);
@@ -93,7 +131,7 @@ const Slider = () => {
       setLocation(0);
       setIdx(0);
     }
-  }, 3500);
+  }, isPlaying? 5000: null);
 
 
   return(
@@ -104,13 +142,17 @@ const Slider = () => {
             transition: "1s ease",
           }}>
             {SliderImg.map((img, idx) =>
-              <Slide>
-                <img src={slide01} style={{ width: "100vw" }}></img>
-                <SlideBtn href="/subjectList">
-                  <p>내 과목 경쟁률 알아보기</p>
-                  <FaShareSquare style={{fontSize:"25px"}}></FaShareSquare>
-                </SlideBtn>
-              </Slide>
+              idx == 0
+              ? <Slide>
+                  <img src={img} style={{ width: "100vw" }}></img>
+                  <SlideBtn href="/subjectList">
+                    <p>내 과목 경쟁률 알아보기</p>
+                    <FaShareSquare style={{fontSize:"25px"}}></FaShareSquare>
+                  </SlideBtn>
+                </Slide>
+              : <Slide>
+                  <img src={img} style={{ width: "100vw" }}></img>
+                </Slide>
             )}
           </Slides>
           <Pagination>
@@ -119,6 +161,17 @@ const Slider = () => {
                 ? <div style={{"opacity": 1}}></div>
                 : <div style={{"opacity": 0.2}}></div>
               )}
+              {
+                isPlaying
+                ? <PlayBtn01 onClick={()=>setIsPlaying(false)}>
+                    <p>Pause</p>
+                    <FaPause />
+                  </PlayBtn01>
+                : <PlayBtn02 onClick={()=>setIsPlaying(true)}>
+                    <p>Play</p>
+                    <FaCaretRight style={{width:"26px", height: "20px"}}/>
+                  </PlayBtn02>
+              }
           </Pagination>
         </SliderBox>
     </>
