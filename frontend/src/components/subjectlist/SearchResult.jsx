@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { FaSistrix, FaShoppingBag } from "react-icons/fa";
 
 import "../../styles/SubjectList.css";
+import { useNavigate } from "react-router-dom";
 
 const ContentDiv = styled.div`
   width: 100%;
@@ -96,7 +97,10 @@ const SearchResult = ({ result, addCart }) => {
     addCart(idx);
   };
 
-  const showDetail = () => {};
+  const showDetail = (e) => {
+    const idx = e.currentTarget.dataset.key;
+    window.open(`/subject/${idx}`, "_blank");
+  };
 
   return (
     <ContentDiv>
@@ -122,7 +126,7 @@ const SearchResult = ({ result, addCart }) => {
           <ResultTableBody className="resultTable">
             {result.map((subjects, idx) => (
               <ResultBodyDiv key={idx}>
-                <ResultBody onClick={showDetail}>
+                <ResultBody data-key={idx} onClick={showDetail}>
                   <ResultTableP style={{ width: "25%" }}>
                     {subjects.subject}
                   </ResultTableP>

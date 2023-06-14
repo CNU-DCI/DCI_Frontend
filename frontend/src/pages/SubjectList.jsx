@@ -58,7 +58,7 @@ const DUMMY_DATA = [
   },
 ];
 
-const SubjectList = () => {
+const SubjectList = ({ major }) => {
   const { state } = useLocation();
 
   const outerDivRef = useRef();
@@ -89,7 +89,7 @@ const SubjectList = () => {
       <Navbar></Navbar>
       <OuterDiv ref={outerDivRef}>
         <SubjectListDiv>
-          <SearchSubjectList state={state} />
+          <SearchSubjectList state={state} major={major} />
           <SearchResult result={results} addCart={addCart} />
           <img src={Chaveron} alt="Chaveron" class="chaveron_icon" />
           <Cart outer={outerDivRef} result={cart} setResult={setCart} />

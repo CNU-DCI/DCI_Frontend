@@ -72,7 +72,11 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchSubjectList = ({ state }) => {
+const SearchSubjectList = ({ state, major }) => {
+  const changeCollege = (e) => {
+    const val = e.value;
+  };
+
   return (
     <SearchSubjectDiv>
       <ContentDiv>
@@ -102,10 +106,18 @@ const SearchSubjectList = ({ state }) => {
               <option value="2023">전공(기초)</option>
             </SelectSection>
           </SelectDiv>
-          <SelectDiv min={220}>
+          <SelectDiv min={150}>
+            <SelectP>단과대</SelectP>
+            <SelectSection onChange={changeCollege}>
+              {major.map((m, idx) => (
+                <option value={m.college}>{m.college}</option>
+              ))}
+            </SelectSection>
+          </SelectDiv>
+          <SelectDiv min={200}>
             <SelectP>학과</SelectP>
             <SelectSection>
-              <option value="1학기">공과대 컴퓨터융합학부</option>
+              <option value="전체">전체</option>
             </SelectSection>
           </SelectDiv>
         </RowDiv>
