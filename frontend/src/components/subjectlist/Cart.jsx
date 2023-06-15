@@ -115,11 +115,10 @@ const CompareBtn = styled.button`
   margin-right: 5%;
 `;
 
-const Cart = ({ outer, result, setResult }) => {
+const Cart = ({ outer, result, setResult, stat }) => {
   const moveComparePage = () => {
     if (result.length !== 0) {
       const pageHeight = window.innerHeight;
-      const DIVIDER_HEIGHT = 5;
       outer.current.scrollTo({
         top: pageHeight,
         left: 0,
@@ -145,7 +144,8 @@ const Cart = ({ outer, result, setResult }) => {
   };
 
   const showDetail = (e) => {
-    const idx = e.currentTarget.dataset.key;
+    const idx = e.currentTarget.dataset.idx;
+    localStorage.setItem("result", JSON.stringify(result));
     window.open(`/subject/${idx}`, "_blank");
   };
 
@@ -173,7 +173,7 @@ const Cart = ({ outer, result, setResult }) => {
           <ResultTableBody className="resultTable">
             {result.map((subjects, idx) => (
               <ResultBodyDiv key={subjects.subjectID}>
-                <ResultBody onClick={showDetail}>
+                <ResultBody data-idx={subjects.subjectID} onClick={showDetail}>
                   <ResultTableP style={{ width: "25%" }}>
                     {subjects.openSbjtNm}
                   </ResultTableP>
@@ -184,7 +184,10 @@ const Cart = ({ outer, result, setResult }) => {
                     {subjects.openSbjtNo}
                   </ResultTableP>
                   <ResultTableP style={{ width: "25%" }}>
-                    {subjects.degrNmSust}
+                    {subjects.degrNmSust[subjects.degrNmSust.length - 1] ===
+                    "학"
+                      ? subjects.degrNmSust + "과"
+                      : subjects.degrNmSust}
                   </ResultTableP>
                   <ResultTableP style={{ width: "15%" }}>
                     {subjects.cptnDivNm}

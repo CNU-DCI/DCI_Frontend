@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
+import ApexCharts from "apexcharts";
+import { getRegistration } from "services/api";
 
 const YearCompareDiv = styled.div`
   width: 80%;
@@ -28,32 +30,58 @@ const YearBtn = styled.button`
   font-weight: bold;
 `;
 
-const YearCompare = () => {
-  const [clicked, setClicked] = useState([false, false, false]);
-
-  const activate = (e) => {
-    const idx = e.target.dataset.idx;
-    setClicked(clicked.map((data, i) => (i == idx ? !data : data)));
-  };
-
+const YearCompare = ({ cart }) => {
+  const [data, setData] = useState([]);
   useEffect(() => {
-    console.log(clicked);
-  }, [clicked]);
+    if (cart.length !== 0) {
+      getRegistration(cart[0].subjectID).then((res) => setData(res));
+    }
+  }, [cart]);
+
+  let state = {
+    series: [
+      {
+        name: "1",
+        data: [1, 3, 2],
+      },
+      {
+        name: "1",
+        data: [3, 4, 2],
+      },
+    ],
+    options: {
+      chart: {
+        height: 350,
+        type: "line",
+        zoom: {
+          enabled: false,
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "straight",
+      },
+      xaxis: {
+        categories: ["Jan", "Feb", "Mar"],
+      },
+    },
+  };
 
   return (
     <YearCompareDiv>
-      <CompareTitle>연도별 비교</CompareTitle>
-      <ButtonsDiv>
-        <YearBtn data-idx="0" clicked={clicked[0]} onClick={activate}>
-          2020 전체
-        </YearBtn>
-        <YearBtn data-idx="1" clicked={clicked[1]} onClick={activate}>
-          2021 전체
-        </YearBtn>
-        <YearBtn data-idx="2" clicked={clicked[2]} onClick={activate}>
-          2022 전체
-        </YearBtn>
-      </ButtonsDiv>
+      {/*
+{data.length !== 0 && state.options && (
+        <ApexCharts
+          series={state.options}
+          options={state.series}
+          type="line"
+          width={500}
+          height={300}
+        ></ApexCharts>
+      )}
+      */}
     </YearCompareDiv>
   );
 };

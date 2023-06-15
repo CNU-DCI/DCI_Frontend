@@ -109,3 +109,17 @@ export const search = async (params) => {
     return e.message;
   }
 };
+
+export const readAllStatistics = async (idList) => {
+  try {
+    const res = await axios({
+      method: "post",
+      url: "/api/statistics/readAll",
+      headers: { "Content-Type": "application/json" },
+      data: idList,
+    });
+    return res.data;
+  } catch (e) {
+    return e.message;
+  }
+};

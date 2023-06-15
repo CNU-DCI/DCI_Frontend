@@ -7,6 +7,8 @@ import "styles/SubjectList.css";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import footer from "img/footer.png";
+import { getRegistration } from "services/api";
+import ApexCharts from "apexcharts";
 
 const OuterDiv = styled.div`
   height: 100vh;
@@ -38,60 +40,21 @@ const CompareListDiv = styled.div`
   place-items: center;
 `;
 
-const DUMMY_DATA = [
-  {
-    subjectId: 1,
-    subject: "알고리즘",
-    grade: 3,
-    sbjnum: "1215-1003",
-    department: "공과대 컴퓨터융합학부",
-    classification: "전공(기초)",
-    professor: "김교수",
-  },
-  {
-    subjectId: 2,
-    subject: "자료구조",
-    grade: 2,
-    sbjnum: "1215-1004",
-    department: "공과대 컴퓨터융합학부",
-    classification: "전공(기초)",
-    professor: "박교수",
-  },
-  {
-    subjectId: 3,
-    subject: "웹프로그래밍",
-    grade: 2,
-    sbjnum: "1215-1004",
-    department: "공과대 컴퓨터융합학부",
-    classification: "전공(기초)",
-    professor: "박교수",
-  },
-];
-
-const SubjectList = ({ major }) => {
+const SubjectList = ({
+  major,
+  setCart,
+  results,
+  setResults,
+  addCart,
+  cart,
+  removeData,
+  stat,
+}) => {
   const outerDivRef = useRef();
-
-  const [results, setResults] = useState([]);
-  const [cart, setCart] = useState([]);
 
   //props from navbar, mostCom, keyword.jsx
   const location = useLocation();
   const [srcContents, setContents] = useState(location.state?.srcContents);
-
-  useEffect(() => {
-    console.log(results);
-  }, [results]);
-
-  useEffect(() => {
-    console.log(cart);
-  }, [cart]);
-
-  const addCart = (idx) => {
-    const tmpResult = results.filter((result) => result.subjectID === idx)[0];
-    setCart([...cart, tmpResult]);
-  };
-
-  const removeCart = (idx) => {};
 
   return (
     <>
@@ -99,13 +62,23 @@ const SubjectList = ({ major }) => {
       <OuterDiv ref={outerDivRef}>
         <SubjectListDiv>
           <SearchSubjectList major={major} setResults={setResults} />
-          <SearchResult result={results} addCart={addCart} />
+          <SearchResult result={results} addCart={addCart} stat={stat} />
           <img src={Chaveron} alt="Chaveron" class="chaveron_icon" />
-          <Cart outer={outerDivRef} result={cart} setResult={setCart} />
+          <Cart
+            outer={outerDivRef}
+            result={cart}
+            setResult={setCart}
+            stat={stat}
+          />
         </SubjectListDiv>
         <CompareListDiv>
-          <CompareSubject outer={outerDivRef} results={cart} />
-          <YearCompare />
+          <CompareSubject
+            outer={outerDivRef}
+            results={cart}
+            removeData={removeData}
+            stat={stat}
+          />
+          <YearCompare cart={cart} />
         </CompareListDiv>
         <img src={footer} alt="footer" />
       </OuterDiv>

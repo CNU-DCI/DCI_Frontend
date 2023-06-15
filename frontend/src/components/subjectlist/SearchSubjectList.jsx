@@ -95,6 +95,10 @@ const SearchSubjectList = ({ major, setResults }) => {
     setQuery({ ...query, [title]: major[college].college });
   };
 
+  useEffect(() => {
+    console.log(query);
+  }, [query]);
+
   const Search = async () => {
     const res = await search(query);
     setResults(res);
@@ -161,7 +165,7 @@ const SearchSubjectList = ({ major, setResults }) => {
               ))}
             </SelectSection>
           </SelectDiv>
-          <SelectDiv min={200}>
+          <SelectDiv min={210}>
             <SelectP>학과</SelectP>
             <SelectSection data-title="dn" onChange={changeQuery}>
               <option value="null" disabled selected>
@@ -170,7 +174,7 @@ const SearchSubjectList = ({ major, setResults }) => {
               {selectedMajor.length !== 0 &&
                 selectedMajor.map((m, idx) => (
                   <option value={m} key={idx}>
-                    {m}
+                    {m[m.length - 1] === "학" ? m + "과" : m}
                   </option>
                 ))}
             </SelectSection>
