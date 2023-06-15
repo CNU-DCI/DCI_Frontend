@@ -5,7 +5,7 @@ import { Navbar } from "components/navbar";
 import Chaveron from "img/Chaveron.png";
 import "styles/SubjectList.css";
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from 'react-router-dom'; 
+import { useLocation } from "react-router-dom";
 import footer from "img/footer.png";
 
 const OuterDiv = styled.div`
@@ -58,21 +58,23 @@ const DUMMY_DATA = [
   },
 ];
 
-const SubjectList = () => { 
+const SubjectList = ({ major }) => {
+  const { state } = useLocation();
+
   const outerDivRef = useRef();
-  
+
   const [results, setResults] = useState(DUMMY_DATA);
   const [cart, setCart] = useState([]);
-  
+
+  /*
   //props from navbar, mostCom, keyword.jsx
   const location = useLocation();
-  const [srcContents, setContents] = useState(
-    location.state?.srcContents
-  );
+  const [srcContents, setContents] = useState(location.state?.srcContents);
+  */
 
   useEffect(() => {
     console.log(cart);
-    console.log(srcContents)
+    //console.log(srcContents);
   }, [cart]);
 
   const addCart = (idx) => {
@@ -87,7 +89,7 @@ const SubjectList = () => {
       <Navbar></Navbar>
       <OuterDiv ref={outerDivRef}>
         <SubjectListDiv>
-          <SearchSubjectList />
+          <SearchSubjectList state={state} major={major} />
           <SearchResult result={results} addCart={addCart} />
           <img src={Chaveron} alt="Chaveron" class="chaveron_icon" />
           <Cart outer={outerDivRef} result={cart} setResult={setCart} />
