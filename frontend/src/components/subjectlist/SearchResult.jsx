@@ -91,14 +91,15 @@ const IconDiv = styled.div`
   margin: auto;
 `;
 
-const SearchResult = ({ result, addCart }) => {
+const SearchResult = ({ result, addCart, stat }) => {
   const PutIn = (e) => {
     const idx = e.currentTarget.dataset.idx;
     addCart(idx);
   };
 
   const showDetail = (e) => {
-    const idx = e.currentTarget.dataset.key;
+    const idx = e.currentTarget.dataset.idx;
+    localStorage.setItem("result", JSON.stringify(result));
     window.open(`/subject/${idx}`, "_blank");
   };
 
@@ -124,9 +125,13 @@ const SearchResult = ({ result, addCart }) => {
             </ResultHead>
           )}
           <ResultTableBody className="resultTable">
-            {result.map((subjects, idx) => (
+            {result.map((subjects) => (
               <ResultBodyDiv key={subjects.subjectID}>
-                <ResultBody onClick={showDetail}>
+                <ResultBody
+                  className="body"
+                  data-idx={subjects.subjectID}
+                  onClick={showDetail}
+                >
                   <ResultTableP style={{ width: "25%" }}>
                     {subjects.openSbjtNm}
                   </ResultTableP>
@@ -137,7 +142,10 @@ const SearchResult = ({ result, addCart }) => {
                     {subjects.openSbjtNo}
                   </ResultTableP>
                   <ResultTableP style={{ width: "25%" }}>
-                    {subjects.degrNmSust}
+                    {subjects.degrNmSust[subjects.degrNmSust.length - 1] ===
+                    "학"
+                      ? subjects.degrNmSust + "과"
+                      : subjects.degrNmSust}
                   </ResultTableP>
                   <ResultTableP style={{ width: "15%" }}>
                     {subjects.cptnDivNm}

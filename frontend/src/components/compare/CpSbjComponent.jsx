@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import X from "img/X.png";
+import { useEffect } from "react";
 
 const CompareSbjDiv = styled.div`
   width: 250px;
@@ -22,7 +23,7 @@ const ColumnDiv = styled.div`
 const CompeteDiv = styled.div`
   width: 80px;
   color: white;
-  background-color: #ff3838;
+  background-color: ${({ stat }) => (stat === 0 ? "#1F77FB" : "#ff3838")};
   font-size: 13px;
   text-align: center;
   display: inline-block;
@@ -83,36 +84,58 @@ const DataP = styled.p`
   line-height: 60px;
 `;
 
-const CpSbjComponent = ({ key, data }) => {
+const RemoveIcon = styled.img`
+  width: 13px;
+  height: 13px;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+`;
+
+const CpSbjComponent = ({ idx, data, removeData, stat }) => {
+  const removeCart = (e) => {
+    removeData(e.target.dataset.key);
+  };
+
+  useEffect(() => {
+    console.log(stat);
+  }, [stat]);
+
+  const calcLevel = (d) => {
+    if (d === 1 || d === 2) {
+      return 0;
+    } else {
+      return 1;
+    }
+  };
+
   return (
-    <CompareSbjDiv key={key}>
+    <CompareSbjDiv key={idx}>
       <RowDiv>
         <ColumnDiv>
-          <CompeteDiv>높은 경쟁률</CompeteDiv>
+          <CompeteDiv stat={stat && calcLevel(stat.comp_level)}>
+            {stat && calcLevel(stat.comp_level) === 0
+              ? "낮은 경쟁률"
+              : "높은 경쟁률"}
+          </CompeteDiv>
         </ColumnDiv>
-        <img
-          src={X}
-          alt="x"
-          style={{
-            width: 13,
-            height: 13,
-            margin: 0,
-            padding: 0,
-            display: "inline-block",
-          }}
-        />
+        <RemoveIcon data-key={idx} src={X} alt="x" onClick={removeCart} />
       </RowDiv>
       <RowDiv>
-        <SubjectTitle>{data.subject}</SubjectTitle>
-        <SubjectDetail>{data.sbjnum}</SubjectDetail>
+        <SubjectTitle>{data.openSbjtNm}</SubjectTitle>
+        <SubjectDetail>{data.openSbjtNo}</SubjectDetail>
       </RowDiv>
-      <SubjectDetail>{data.department}</SubjectDetail>
+      <SubjectDetail>
+        {data.degrNmSust[data.degrNmSust.length - 1] === "학"
+          ? data.degrNmSust + "과"
+          : data.degrNmSust}
+      </SubjectDetail>
       <RowDiv>
         <CountDiv>
-          <DataP>3명</DataP>
+          <DataP>{stat && stat.correctedNum}명</DataP>
         </CountDiv>
         <TimeDiv>
-          <DataP>6분 45초</DataP>
+          <DataP>{stat && parseInt(stat.comp_rate * 100)} %</DataP>
         </TimeDiv>
       </RowDiv>
       <RowDiv>
@@ -120,7 +143,7 @@ const CpSbjComponent = ({ key, data }) => {
           <SubjectDetail>정정횟수</SubjectDetail>
         </CountTextDiv>
         <TimeTextDiv>
-          <SubjectDetail>마감시간</SubjectDetail>
+          <SubjectDetail>1분 이내 수강신청 비율</SubjectDetail>
         </TimeTextDiv>
       </RowDiv>
     </CompareSbjDiv>

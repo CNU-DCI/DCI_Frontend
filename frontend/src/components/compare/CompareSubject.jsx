@@ -2,10 +2,13 @@ import styled from "@emotion/styled";
 import { CpSbjComponent } from ".";
 import "styles/SubjectList.css";
 import Add from "img/Add.png";
+import { useEffect, useState } from "react";
+import { readAllStatistics } from "services/api";
 
 const CompareSubjectDiv = styled.div`
   width: 80%;
-  height: 30%;
+  height: 20%;
+  min-height: 170px;
 `;
 
 const CompareTitle = styled.p`
@@ -26,7 +29,7 @@ const CompareComponentDiv = styled.div`
   white-space: nowrap;
 `;
 
-const CompareSubject = ({ outer, results }) => {
+const CompareSubject = ({ outer, results, removeData, stat }) => {
   const MoveSbjListPage = () => {
     outer.current.scrollTo({
       top: 0,
@@ -35,12 +38,21 @@ const CompareSubject = ({ outer, results }) => {
     });
   };
 
+  useEffect(() => {
+    console.log(results);
+  }, []);
+
   return (
     <CompareSubjectDiv>
       <CompareTitle>데이터 비교</CompareTitle>
       <CompareComponentDiv className="comparesbj">
-        {results.map((tmp, idx) => (
-          <CpSbjComponent key={idx} data={tmp} />
+        {results.map((tmp) => (
+          <CpSbjComponent
+            idx={tmp.subjectID}
+            data={tmp}
+            removeData={removeData}
+            stat={stat.filter((s) => s.subjectID === tmp.subjectID)[0]}
+          />
         ))}
         <img
           src={Add}
