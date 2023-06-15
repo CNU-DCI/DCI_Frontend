@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { keyframes } from '@emotion/react';
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-
+import React, { useState } from "react";
+import { keyframes } from "@emotion/react";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 const fadeIn = keyframes`
   from {
@@ -29,7 +28,7 @@ const PopupBG = styled.div`
   background: black;
   opacity: 0.8;
   z-index: 1212;
-`
+`;
 
 const PopupContainer = styled.div`
   max-width: 60vw;
@@ -45,10 +44,8 @@ const PopupContainer = styled.div`
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   animation: ${fadeIn} 0.3s linear;
   z-index: 1313;
-`
-const PopupContents = styled.div`
-
-`
+`;
+const PopupContents = styled.div``;
 
 const MainPopup = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -59,22 +56,19 @@ const MainPopup = () => {
 
   return (
     <>
-    {isOpen && (
-      <>
-        <PopupBG></PopupBG>
-        <PopupContainer>
-          
-                    <PopupContents>
-                      <h2 style={{color:"white", fontSize:"30px"}}>안녕하세요</h2>
-                      <p>This is a popup with animation!</p>
-                      <button onClick={togglePopup}>Close</button>
-                    </PopupContents>
-                  
-        </PopupContainer>
-      </>
-        )}
+      {isOpen && (
+        <>
+          <PopupBG></PopupBG>
+          <PopupContainer>
+            <PopupContents>
+              <h2 style={{ color: "white", fontSize: "30px" }}>안녕하세요</h2>
+              <p>This is a popup with animation!</p>
+              <button onClick={togglePopup}>Close</button>
+            </PopupContents>
+          </PopupContainer>
+        </>
+      )}
     </>
-    
   );
 };
 

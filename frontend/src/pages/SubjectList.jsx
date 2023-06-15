@@ -28,6 +28,16 @@ const SubjectListDiv = styled.div`
   place-items: center;
 `;
 
+const CompareListDiv = styled.div`
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  place-items: center;
+`;
+
 const DUMMY_DATA = [
   {
     subjectId: 1,
@@ -59,26 +69,25 @@ const DUMMY_DATA = [
 ];
 
 const SubjectList = ({ major }) => {
-  const { state } = useLocation();
-
   const outerDivRef = useRef();
 
-  const [results, setResults] = useState(DUMMY_DATA);
+  const [results, setResults] = useState([]);
   const [cart, setCart] = useState([]);
 
-  /*
   //props from navbar, mostCom, keyword.jsx
   const location = useLocation();
   const [srcContents, setContents] = useState(location.state?.srcContents);
-  */
+
+  useEffect(() => {
+    console.log(results);
+  }, [results]);
 
   useEffect(() => {
     console.log(cart);
-    //console.log(srcContents);
   }, [cart]);
 
   const addCart = (idx) => {
-    const tmpResult = results[idx];
+    const tmpResult = results.filter((result) => result.subjectID === idx)[0];
     setCart([...cart, tmpResult]);
   };
 
@@ -89,15 +98,15 @@ const SubjectList = ({ major }) => {
       <Navbar></Navbar>
       <OuterDiv ref={outerDivRef}>
         <SubjectListDiv>
-          <SearchSubjectList state={state} major={major} />
+          <SearchSubjectList major={major} setResults={setResults} />
           <SearchResult result={results} addCart={addCart} />
           <img src={Chaveron} alt="Chaveron" class="chaveron_icon" />
           <Cart outer={outerDivRef} result={cart} setResult={setCart} />
         </SubjectListDiv>
-        <SubjectListDiv>
+        <CompareListDiv>
           <CompareSubject outer={outerDivRef} results={cart} />
           <YearCompare />
-        </SubjectListDiv>
+        </CompareListDiv>
         <img src={footer} alt="footer" />
       </OuterDiv>
     </>

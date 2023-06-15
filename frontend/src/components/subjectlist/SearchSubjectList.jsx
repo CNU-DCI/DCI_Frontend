@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { MINT } from "../../constants/color";
 import { FaSistrix } from "react-icons/fa";
 import "../../styles/SubjectList.css";
+import { useEffect, useState } from "react";
+import { search } from "services/api";
 
 const SearchSubjectDiv = styled.div`
   width: 100%;
@@ -72,9 +74,41 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchSubjectList = ({ state, major }) => {
-  const changeCollege = (e) => {
-    const val = e.value;
+const cdnList = [
+  "교양(공통기초)",
+  "교직",
+  "일반선택",
+  "교양(일반)",
+  "전공(기초)",
+  "전공(핵심)",
+  "전공(심화)",
+];
+
+const SearchSubjectList = ({ major, setResults }) => {
+  const [query, setQuery] = useState([]);
+
+  const [selectedMajor, setSelectedMajor] = useState([]);
+  const selectCollege = (e) => {
+    const college = e.target.value;
+    const title = e.target.dataset.title;
+    setSelectedMajor(major[college].majors);
+    setQuery({ ...query, [title]: major[college].college });
+  };
+
+  const Search = async () => {
+    const res = await search(query);
+    setResults(res);
+  };
+
+  const changeQuery = (e) => {
+    const title = e.target.dataset.title;
+    const value = e.target.value;
+    setQuery({ ...query, [title]: value });
+  };
+
+  const textInput = (e) => {
+    const value = e.target.value;
+    setQuery({ ...query, keyword: value });
   };
 
   return (
@@ -82,42 +116,63 @@ const SearchSubjectList = ({ state, major }) => {
       <ContentDiv>
         <RowDiv>
           <SelectDiv>
-            <SelectSection min={60}>
-              <option value="2023">2023</option>
+            <SelectSection data-title="year" min={60} onChange={changeQuery}>
+              <option value="null" selected disabled>
+                ---
+              </option>
               <option value="2022">2022</option>
               <option value="2021">2021</option>
+              <option value="2020">2020</option>
             </SelectSection>
             <SelectP>년도</SelectP>
           </SelectDiv>
           <SelectDiv>
-            <SelectSection min={50}>
-              <option value="first_semester">1학기</option>
-              <option value="summer_season">하기계절</option>
-              <option value="second_semester">2학기</option>
-              <option value="winter_season">동기계절</option>
+            <SelectSection data-title="shmt" min={50} onChange={changeQuery}>
+              <option value="null" selected disabled>
+                ---
+              </option>
+              <option value="1학기">1학기</option>
+              <option value="2학기">2학기</option>
             </SelectSection>
           </SelectDiv>
         </RowDiv>
         <RowDiv>
-          <SelectDiv min={170}>
+          <SelectDiv min={200}>
             <SelectP>이수구분</SelectP>
-            <SelectSection>
-              <option value="2023">교양</option>
-              <option value="2023">전공(기초)</option>
+            <SelectSection data-title="cdn" onChange={changeQuery}>
+              <option value="null" selected disabled>
+                ---
+              </option>
+              {cdnList.map((m, idx) => (
+                <option value={m}>{m}</option>
+              ))}
             </SelectSection>
           </SelectDiv>
-          <SelectDiv min={150}>
+          <SelectDiv min={220}>
             <SelectP>단과대</SelectP>
-            <SelectSection onChange={changeCollege}>
+            <SelectSection data-title="colg" onChange={selectCollege}>
+              <option value="null" selected disabled>
+                ---
+              </option>
               {major.map((m, idx) => (
-                <option value={m.college}>{m.college}</option>
+                <option value={idx} key={idx}>
+                  {m.college}
+                </option>
               ))}
             </SelectSection>
           </SelectDiv>
           <SelectDiv min={200}>
             <SelectP>학과</SelectP>
-            <SelectSection>
-              <option value="전체">전체</option>
+            <SelectSection data-title="dn" onChange={changeQuery}>
+              <option value="null" disabled selected>
+                ---
+              </option>
+              {selectedMajor.length !== 0 &&
+                selectedMajor.map((m, idx) => (
+                  <option value={m} key={idx}>
+                    {m}
+                  </option>
+                ))}
             </SelectSection>
           </SelectDiv>
         </RowDiv>
@@ -126,9 +181,9 @@ const SearchSubjectList = ({ state, major }) => {
             <SearchInput
               type="text"
               placeholder="과목명, 교수명으로 검색해보세요"
-              value={state && state.srcContents}
-            ></SearchInput>
-            <FaSistrix class="magnify_icon" />
+              onChange={textInput}
+            />
+            <FaSistrix class="magnify_icon" onClick={Search} />
           </SearchSection>
         </RowDiv>
       </ContentDiv>
