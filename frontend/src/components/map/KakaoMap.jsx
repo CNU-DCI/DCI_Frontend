@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 const ContainDiv = styled.div`
   width: 90%;
   height: 90%;
+  margin: 0 auto;
 `;
 
 function KakaoMap() {
