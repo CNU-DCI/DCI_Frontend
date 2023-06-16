@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { MINT } from "../../constants/color";
 import { FaSistrix } from "react-icons/fa";
 import "../../styles/SubjectList.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { search } from "services/api";
 
 const SearchSubjectDiv = styled.div`
@@ -86,12 +86,15 @@ const cdnList = [
 
 const SearchSubjectList = ({ major, setResults }) => {
   const [query, setQuery] = useState([]);
-
+  const majorRef = useRef();
   const [selectedMajor, setSelectedMajor] = useState([]);
+
   const selectCollege = (e) => {
     const college = e.target.value;
     const title = e.target.dataset.title;
     setSelectedMajor(major[college].majors);
+    delete query.dn;
+    majorRef.current.value = null;
     setQuery({ ...query, [title]: major[college].college });
   };
 
@@ -167,7 +170,11 @@ const SearchSubjectList = ({ major, setResults }) => {
           </SelectDiv>
           <SelectDiv min={210}>
             <SelectP>학과</SelectP>
-            <SelectSection data-title="dn" onChange={changeQuery}>
+            <SelectSection
+              data-title="dn"
+              onChange={changeQuery}
+              ref={majorRef}
+            >
               <option value="null" disabled selected>
                 ---
               </option>

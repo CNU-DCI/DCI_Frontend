@@ -63,7 +63,7 @@ export const getKeywordRank = async (rank, order) => {
 };
 
 export const getStatisticsRank = async (rank, order) => {
-  /*검색어 순위 목록*/
+  /*경쟁률 순위 목록*/
   try {
     const res = await axios({
       method: "get",
@@ -79,16 +79,13 @@ export const getStatisticsRank = async (rank, order) => {
   }
 };
 
-export const getAllClass = async (id, opener) => {
-  /*검색어 순위 목록*/
+export const getAllClass = async (params) => {
+  /*분반별 통계*/
   try {
     const res = await axios({
       method: "get",
       url: "/api/statistics/readAll-class",
-      params: {
-        subjectID: id,
-        opener,
-      },
+      params,
     });
     return res.data;
   } catch (e) {
@@ -111,6 +108,7 @@ export const search = async (params) => {
 };
 
 export const readAllStatistics = async (idList) => {
+  /*경쟁률 리스트*/
   try {
     const res = await axios({
       method: "post",
