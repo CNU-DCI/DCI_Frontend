@@ -105,7 +105,7 @@ const Navbar = () => {
           </SrcBox>
         ) : (
           <p style={{ color: "yellow", fontSize: "16px" }}>
-            다음수강신청까지 D-255
+            다음수강신청까지 D-74
           </p>
         )}
       </MenuArea>

@@ -6,6 +6,7 @@ import { Icons } from "constants/layout";
 import { Layout60vw } from "constants/layout";
 import { MainContainer } from "constants/layout";
 import { ReactComponent as Search } from "img/Search.svg";
+import { getKeywordRank } from 'services/api'
 
 const keywords_dummy = [
   {
@@ -78,7 +79,7 @@ const callbacks = {
 const options = {
   rotations: 2,
   rotationAngles: [0, 0],
-  fontSizes: [15, 35],
+  fontSizes: [25, 45],
   fontFamily: "KBO-Dia-Gothic_bold",
   colors: ["#50D2E3", "#FFEE64", "#0A4399"],
 };
@@ -90,7 +91,17 @@ const WordCloudStyle = styled.div`
 `;
 
 const Keywords = () => {
-  const [keywords, setKeyword] = useState(keywords_dummy);
+  // const [keywords, setKeyword] = useState(keywords_dummy);
+  const [realKeywords, setReal] = useState([]);
+
+  
+  useEffect(()=>{
+    getKeywordRank(20, 1)
+      .then(res => {
+        setReal(res);
+        console.log(res);
+      })
+  },[])
 
   const navigate = useNavigate();
 
@@ -118,16 +129,19 @@ const Keywords = () => {
 
       <MainContainer style={{ marginTop: "3vw" }}>
         <WordCloudStyle>
-          <ReactWordcloud
+          {
+            realKeywords.length !== 0 &&
+            <ReactWordcloud
             callbacks={callbacks}
             options={options}
             size={size}
-            words={keywords_dummy}
-            maxSize={[600, 450]}
+            words={realKeywords}
             onClick={ReceiveProps}
             onMouseOver={OnMouseOver}
             style={{ display: "inline-block" }}
           />
+          }
+          
         </WordCloudStyle>
       </MainContainer>
     </Layout60vw>
