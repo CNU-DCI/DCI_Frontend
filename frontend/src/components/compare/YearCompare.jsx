@@ -14,40 +14,31 @@ const YearCompare = ({ cart }) => {
   const [options, setOptions] = useState(null);
   useEffect(() => {
     if (cart.length !== 0) {
-      getRegistration(cart[0].subjectID).then((res) => setData(res));
+      cart.map((c) =>
+        getRegistration(c.subjectID).then((res) => setData(...data, res))
+      );
     }
   }, [cart]);
 
   useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  useEffect(() => {
     if (data.length > 0) {
       const dt = data.map((d) => {
-        let year = d.tlsn_APLY_DT.substr(0, 4);
-        let month = d.tlsn_APLY_DT.substr(4, 2);
-        let day = d.tlsn_APLY_DT.substr(6, 2);
-        let hour = d.tlsn_APLY_DT.substr(8, 2);
-        let minute = d.tlsn_APLY_DT.substr(10, 2);
-        let second = d.tlsn_APLY_DT.substr(-2);
-        console.log(year, month, day, hour, minute, second);
-        /*
-        return (
-          [
-      
-            new Date(d.tlsn_APLY_DT),
-            d.registrationNumber,
-          ]
-        )
-        });
-      console.log(dt);
-        */
+        var date = new Date(
+          d.tlsn_APLY_DT.replace(
+            /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/,
+            "$1-$2-$3 $4:$5:$6"
+          )
+        );
+        return [date.getTime(), d.registrationNumber];
       });
-
       const series = [
         {
           name: "수강인원 분포", //will be displayed on the y-axis
-          data: data.map((d) => [
-            new Date(d.tlsn_APLY_DT).getTime(),
-            d.registrationNumber,
-          ]),
+          data: dt,
         },
       ];
 
@@ -58,13 +49,14 @@ const YearCompare = ({ cart }) => {
           height: 350,
           zoom: {
             autoScaleYaxis: true,
+            zoomedArea: {},
           },
         },
         dataLabels: {
           enabled: false,
         },
         stroke: {
-          curve: "straight",
+          curve: "smooth",
         },
         title: {
           text: "수강인원 분포",
@@ -72,8 +64,11 @@ const YearCompare = ({ cart }) => {
         },
         xaxis: {
           type: "datetime",
-          min: new Date(data[0].tlsn_APLY_DT).getTime(),
-          tickAmount: 6,
+        },
+        yaxis: {
+          title: {
+            text: "Registration Number",
+          },
         },
         tooltip: {
           x: {
@@ -97,12 +92,7 @@ const YearCompare = ({ cart }) => {
   return (
     <YearCompareDiv>
       {data.length > 0 && options !== null && (
-        <Chart
-          options={options.options}
-          type="line"
-          series={options.series}
-          width="100%"
-        />
+        <Chart options={options.options} type="line" series={options.series} />
       )}
     </YearCompareDiv>
   );
