@@ -53,6 +53,7 @@ const CountDiv = styled.div`
   border: 1px solid #a4a4a4;
   margin-left: 5px;
   margin-top: 10px;
+  background-color: ${({ stat }) => (stat === 0 ? "#1F77FB" : "#FF3838")};
 `;
 
 const CountTextDiv = styled.div`
@@ -69,6 +70,7 @@ const TimeDiv = styled.div`
   display: inline-block;
   border: 1px solid #a4a4a4;
   margin-left: 5px;
+  background-color: ${({ stat }) => (stat === 0 ? "#1F77FB" : "#FF3838")};
 `;
 
 const TimeTextDiv = styled.div`
@@ -102,10 +104,20 @@ const CpSbjComponent = ({ idx, data, removeData, stat }) => {
   }, [stat]);
 
   const calcLevel = (d) => {
+    /*comp_level이 1 or 2인 경우 낮음, 3 or 4인 경우 높음 */
     if (d === 1 || d === 2) {
       return 0;
     } else {
       return 1;
+    }
+  };
+
+  const CalcRate = (r) => {
+    /*정정인원 비율이 0.1 보다 큰 경우 높은 것으로 판단 */
+    if (r > 0.1) {
+      return 1;
+    } else {
+      return 0;
     }
   };
 
@@ -131,10 +143,10 @@ const CpSbjComponent = ({ idx, data, removeData, stat }) => {
           : data.degrNmSust}
       </SubjectDetail>
       <RowDiv>
-        <CountDiv>
+        <CountDiv stat={stat && CalcRate(stat.correctedRate)}>
           <DataP>{stat && stat.correctedNum}명</DataP>
         </CountDiv>
-        <TimeDiv>
+        <TimeDiv stat={stat && calcLevel(stat.comp_level)}>
           <DataP>{stat && parseInt(stat.comp_rate * 100)} %</DataP>
         </TimeDiv>
       </RowDiv>

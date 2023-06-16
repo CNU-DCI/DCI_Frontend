@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import "styles/SubjectList.css";
-import { MINT } from "constants/color";
 import KakaoMap from "components/map/KakaoMap";
 import { useParams } from "react-router";
 import timetable from "img/timetable.png";
-import { getStatistics } from "services/api";
+import { getAllClass, getStatistics } from "services/api";
+import Chart from "react-apexcharts";
 
 const DeviceDiv = styled.div`
   width: 100%;
@@ -124,18 +124,7 @@ const GraphDiv = styled.div`
   margin: 0 auto;
   margin-top: 2%;
   border-top: 1px solid #50d2e3;
-`;
-
-const ButtonRow = styled.div`
-  width: 100%;
-  height: 15%;
-`;
-
-const RowDiv = styled.div`
-  width: 100%;
-  height: 50%;
-  display: flex;
-  align-items: ${({ alignItem }) => alignItem};
+  padding-top: 2%;
 `;
 
 const ContentTitleDiv = styled.div`
@@ -154,38 +143,6 @@ const ContentTitleSpan = styled.span`
   font-weight: 15px;
   font-weight: bold;
   color: #50d2e3;
-`;
-
-const SelectDiv = styled.div`
-  height: 25px;
-  border: 1px solid ${MINT};
-  margin-right: 10px;
-  min-width: ${({ min }) => min + "px"};
-`;
-
-const SelectSection = styled.select`
-  border: none;
-  font-size: 15px;
-  font-weight: bold;
-  min-width: ${({ min }) => min + "px"};
-`;
-
-const SelectP = styled.p`
-  font-size: 15px;
-  display: inline-block;
-  margin: 0;
-  padding: 0 5px;
-  color: #888888;
-`;
-
-const PeriodBtn = styled.button`
-  height: 25px;
-  width: 120px;
-  text-align: center;
-  border: 1px solid black;
-  background-color: white;
-  margin-right: 10px;
-  font-weight: bold;
 `;
 
 const EvaluteTable = styled.table`
@@ -294,19 +251,30 @@ const TextDiv = styled.div`
   justify-content: center;
 `;
 
+const GraphComponentDiv = styled.div`
+  width: 50%;
+  display: inline-block;
+  border: 1px solid gray;
+`;
+
 const Popup = () => {
   const { subjectId } = useParams();
   const results = JSON.parse(localStorage.getItem("result"));
   const subject = results.filter((result) => result.subjectID === subjectId);
   const [stat, setStat] = useState([]);
-
-  useEffect(() => {
-    console.log(subject);
-  }, [subject]);
+  const [divideStat, setDivideStat] = useState([]);
 
   useEffect(() => {
     getStatistics(subjectId).then((res) => setStat(res));
   }, [subjectId]);
+
+  useEffect(() => {
+    let params = {
+      subjectID: subjectId,
+      opener: subject[0].degrNmSust,
+    };
+    getAllClass(params).then((res) => setDivideStat(res));
+  }, []);
 
   const calcLevel = (d) => {
     /*comp_level이 1 or 2인 경우 낮음, 3 or 4인 경우 높음 */
@@ -324,6 +292,21 @@ const Popup = () => {
     } else {
       return 0;
     }
+  };
+
+  const series = [
+    {
+      name: "분반별 정정인원 수", //will be displayed on the y-axis
+      data: divideStat.map((d) => d.correctedNum),
+    },
+  ];
+  const options = {
+    chart: {
+      id: "simple-bar",
+    },
+    xaxis: {
+      categories: divideStat.map((d) => d.subjectID.substr(-2) + "분반"), //will be displayed on the x-asis
+    },
   };
 
   return (
@@ -418,29 +401,36 @@ const Popup = () => {
         </EvaluationDiv>
       </DetailDiv>
       <GraphDiv>
-        <ButtonRow>
-          <RowDiv alignItem="end">
-            <SelectDiv>
-              <SelectSection min={60}>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-                <option value="2020">2020</option>
-              </SelectSection>
-              <SelectP>년도</SelectP>
-            </SelectDiv>
-            <SelectDiv>
-              <SelectSection min={50}>
-                <option value="first_semester">1학기</option>
-                <option value="second_semester">2학기</option>
-              </SelectSection>
-            </SelectDiv>
-          </RowDiv>
-          <RowDiv alignItem="center">
-            <PeriodBtn>본수강신청</PeriodBtn>
-            <PeriodBtn>전학년 수강신청</PeriodBtn>
-            <PeriodBtn>정정기간</PeriodBtn>
-          </RowDiv>
-        </ButtonRow>
+        {/*{divideStat.length !== 0 && (
+          <ApexCharts
+            type="bar"
+            series={divideStat.map((d) => ({
+              name: d.subjectID,
+              data: d.correctedNum,
+            }))}
+            options={{
+              chart: {
+                type: "bar",
+                height: 500,
+                width: 500,
+              },
+              plotOptions: {
+                bar: {
+                  horizontal: false,
+                  columnWidth: "55%",
+                  endingShape: "rounded",
+                },
+              },
+              dataLabels: {
+                enabled: false,
+              },
+            }}
+          ></ApexCharts>
+        )}*/}
+        <GraphComponentDiv>
+          <p>분반별 정정인원</p>
+          <Chart options={options} type="bar" series={series} width="100%" />
+        </GraphComponentDiv>
       </GraphDiv>
     </DeviceDiv>
   );
