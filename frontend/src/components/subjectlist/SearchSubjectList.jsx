@@ -99,6 +99,7 @@ const SearchSubjectList = ({ major, setResults, srcContents }) => {
   };
 
   useEffect(() => {
+    console.log(srcContents);
     if (srcContents !== undefined) setQuery({ ...query, keyword: srcContents });
   }, [srcContents]);
 
@@ -193,7 +194,7 @@ const SearchSubjectList = ({ major, setResults, srcContents }) => {
               type="text"
               placeholder="과목명, 교수명으로 검색해보세요"
               onChange={textInput}
-              defaultValue={srcContents !== undefined && srcContents}
+              defaultValue={srcContents !== undefined ? srcContents : ""}
             />
             <FaSistrix class="magnify_icon" onClick={Search} />
           </SearchSection>

@@ -125,46 +125,47 @@ const SearchResult = ({ result, addCart, stat }) => {
             </ResultHead>
           )}
           <ResultTableBody className="resultTable">
-            {result.map((subjects) => (
-              <ResultBodyDiv key={subjects.subjectID}>
-                <ResultBody
-                  className="body"
-                  data-idx={subjects.subjectID}
-                  onClick={showDetail}
-                >
-                  <ResultTableP style={{ width: "25%" }}>
-                    {subjects.openSbjtNm}
-                  </ResultTableP>
-                  <ResultTableP style={{ width: "5%" }}>
-                    {subjects.trgtShyr}
-                  </ResultTableP>
-                  <ResultTableP style={{ width: "20%" }}>
-                    {subjects.openSbjtNo}
-                  </ResultTableP>
-                  <ResultTableP style={{ width: "25%" }}>
-                    {subjects.degrNmSust[subjects.degrNmSust.length - 1] ===
-                    "학"
-                      ? subjects.degrNmSust + "과"
-                      : subjects.degrNmSust}
-                  </ResultTableP>
-                  <ResultTableP style={{ width: "15%" }}>
-                    {subjects.cptnDivNm}
-                  </ResultTableP>
-                  <ResultTableP style={{ width: "10%" }}>
-                    {subjects.profInfo}
-                  </ResultTableP>
-                </ResultBody>
-                <IconDiv>
-                  <FaShoppingBag
+            {result.length !== 0 &&
+              result.map((subjects) => (
+                <ResultBodyDiv key={subjects.subjectID}>
+                  <ResultBody
+                    className="body"
                     data-idx={subjects.subjectID}
-                    size="24"
-                    class="shopping_icon"
-                    onClick={PutIn}
-                    style={{ cursor: "pointer" }}
-                  />
-                </IconDiv>
-              </ResultBodyDiv>
-            ))}
+                    onClick={showDetail}
+                  >
+                    <ResultTableP style={{ width: "25%" }}>
+                      {subjects.openSbjtNm}
+                    </ResultTableP>
+                    <ResultTableP style={{ width: "5%" }}>
+                      {subjects.trgtShyr}
+                    </ResultTableP>
+                    <ResultTableP style={{ width: "20%" }}>
+                      {subjects.openSbjtNo}
+                    </ResultTableP>
+                    <ResultTableP style={{ width: "25%" }}>
+                      {subjects.degrNmSust[subjects.degrNmSust.length - 1] ===
+                      "학"
+                        ? subjects.degrNmSust + "과"
+                        : subjects.degrNmSust}
+                    </ResultTableP>
+                    <ResultTableP style={{ width: "15%" }}>
+                      {subjects.cptnDivNm}
+                    </ResultTableP>
+                    <ResultTableP style={{ width: "10%" }}>
+                      {subjects.profInfo}
+                    </ResultTableP>
+                  </ResultBody>
+                  <IconDiv>
+                    <FaShoppingBag
+                      data-idx={subjects.subjectID}
+                      size="24"
+                      class="shopping_icon"
+                      onClick={PutIn}
+                      style={{ cursor: "pointer" }}
+                    />
+                  </IconDiv>
+                </ResultBodyDiv>
+              ))}
           </ResultTableBody>
         </ResultTableDiv>
       </SearchResultDiv>
