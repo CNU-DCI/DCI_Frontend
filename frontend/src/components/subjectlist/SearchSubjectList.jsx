@@ -84,7 +84,7 @@ const cdnList = [
   "전공(심화)",
 ];
 
-const SearchSubjectList = ({ major, setResults }) => {
+const SearchSubjectList = ({ major, setResults, srcContents }) => {
   const [query, setQuery] = useState([]);
   const majorRef = useRef();
   const [selectedMajor, setSelectedMajor] = useState([]);
@@ -99,8 +99,8 @@ const SearchSubjectList = ({ major, setResults }) => {
   };
 
   useEffect(() => {
-    console.log(query);
-  }, [query]);
+    if (srcContents !== undefined) setQuery({ ...query, keyword: srcContents });
+  }, [srcContents]);
 
   const Search = async () => {
     const res = await search(query);
@@ -193,6 +193,7 @@ const SearchSubjectList = ({ major, setResults }) => {
               type="text"
               placeholder="과목명, 교수명으로 검색해보세요"
               onChange={textInput}
+              defaultValue={srcContents !== undefined && srcContents}
             />
             <FaSistrix class="magnify_icon" onClick={Search} />
           </SearchSection>

@@ -120,9 +120,9 @@ const EvaluationDiv = styled.div`
 
 const GraphDiv = styled.div`
   width: 80%;
-  height: 70vh;
   margin: 0 auto;
   margin-top: 2%;
+  margin-bottom: 10%;
   border-top: 1px solid #50d2e3;
   padding-top: 2%;
 `;
@@ -252,7 +252,7 @@ const TextDiv = styled.div`
 `;
 
 const GraphComponentDiv = styled.div`
-  width: 50%;
+  width: 47%;
   display: inline-block;
   border: 1px solid gray;
 `;
@@ -267,6 +267,10 @@ const Popup = () => {
   useEffect(() => {
     getStatistics(subjectId).then((res) => setStat(res));
   }, [subjectId]);
+
+  useEffect(() => {
+    console.log(divideStat);
+  }, [divideStat]);
 
   useEffect(() => {
     let params = {
@@ -294,19 +298,37 @@ const Popup = () => {
     }
   };
 
-  const series = [
+  const headCountSeries = [
     {
       name: "분반별 정정인원 수", //will be displayed on the y-axis
       data: divideStat.map((d) => d.correctedNum),
     },
   ];
-  const options = {
+
+  const headCountOptions = {
     chart: {
       id: "simple-bar",
     },
     xaxis: {
       categories: divideStat.map((d) => d.subjectID.substr(-2) + "분반"), //will be displayed on the x-asis
     },
+    colors: ["#4AD6BB"],
+  };
+
+  const competeRateSeries = [
+    {
+      name: "분반별 정정인원 수", //will be displayed on the y-axis
+      data: divideStat.map((d) => d.comp_rate),
+    },
+  ];
+  const competeRateOptions = {
+    chart: {
+      id: "simple-bar",
+    },
+    xaxis: {
+      categories: divideStat.map((d) => d.subjectID.substr(-2) + "분반"), //will be displayed on the x-asis
+    },
+    colors: ["#4C9DD4"],
   };
 
   return (
@@ -381,7 +403,9 @@ const Popup = () => {
           </MapDiv>
         </Row>
         <EvaluationDiv>
-          <ContentTitle>평가방법</ContentTitle>
+          <ContentTitle style={{ paddingLeft: 0, marginTop: "5px" }}>
+            평가방법
+          </ContentTitle>
           <EvaluteTable>
             <EvaluateTr>
               <EvaluateTh>중간고사</EvaluateTh>
@@ -401,35 +425,23 @@ const Popup = () => {
         </EvaluationDiv>
       </DetailDiv>
       <GraphDiv>
-        {/*{divideStat.length !== 0 && (
-          <ApexCharts
-            type="bar"
-            series={divideStat.map((d) => ({
-              name: d.subjectID,
-              data: d.correctedNum,
-            }))}
-            options={{
-              chart: {
-                type: "bar",
-                height: 500,
-                width: 500,
-              },
-              plotOptions: {
-                bar: {
-                  horizontal: false,
-                  columnWidth: "55%",
-                  endingShape: "rounded",
-                },
-              },
-              dataLabels: {
-                enabled: false,
-              },
-            }}
-          ></ApexCharts>
-        )}*/}
-        <GraphComponentDiv>
+        <GraphComponentDiv style={{ marginRight: "6%" }}>
           <p>분반별 정정인원</p>
-          <Chart options={options} type="bar" series={series} width="100%" />
+          <Chart
+            options={headCountOptions}
+            type="bar"
+            series={headCountSeries}
+            width="100%"
+          />
+        </GraphComponentDiv>
+        <GraphComponentDiv>
+          <p>분반별 경쟁률</p>
+          <Chart
+            options={competeRateOptions}
+            type="bar"
+            series={competeRateSeries}
+            width="100%"
+          />
         </GraphComponentDiv>
       </GraphDiv>
     </DeviceDiv>
