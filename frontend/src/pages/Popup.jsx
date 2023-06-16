@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 import timetable from "img/timetable.png";
 import { getAllClass, getStatistics } from "services/api";
 import Chart from "react-apexcharts";
+import { Layout80vw } from "constants/layout";
 
 const DeviceDiv = styled.div`
   width: 100%;
@@ -48,6 +49,10 @@ const TitleBackground = styled.div`
   background-color: #51d2e3;
   height: 30vh;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
 `;
 
 const SummaryDiv = styled.div`
@@ -58,9 +63,10 @@ const SummaryDiv = styled.div`
 `;
 
 const DetailDiv = styled.div`
-  width: 80%;
-  height: 70vh;
-  margin: 0 auto;
+  width: 100%;
+  height: 95vh;
+  margin-top: 50px;
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.15);
 `;
@@ -70,7 +76,16 @@ const SubjectDetailDiv = styled.div`
   height: 90%;
   background-color: white;
   margin-right: 2%;
-  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px;
+`;
+
+const SubjectDetail = styled.p`
+  font-size: 20px;
+  font-weight: bold;
+  padding-left: 5%;
 `;
 
 const SubjectSummaryDiv = styled.div`
@@ -119,7 +134,7 @@ const EvaluationDiv = styled.div`
 `;
 
 const GraphDiv = styled.div`
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   margin-top: 2%;
   margin-bottom: 10%;
@@ -128,15 +143,20 @@ const GraphDiv = styled.div`
 `;
 
 const ContentTitleDiv = styled.div`
-  width: 90%;
+  width: 100%;
   height: 10%;
 `;
 
 const ContentTitle = styled.p`
   font-size: 15px;
   font-weight: bold;
-  padding-left: 5%;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+
+  *{
+    margin: 5px;
+  }
 `;
 
 const ContentTitleSpan = styled.span`
@@ -172,21 +192,17 @@ const EvaluateTd = styled.td`
 `;
 
 const TimeTableImg = styled.img`
-  width: 90%;
+  width: 100%;
+  height: 90%;
   margin: 0 auto;
-  margin-top: 5%;
+  margin-top: 3%;
+  object-fit: contain;
 `;
 
-const SubjectDetail = styled.p`
-  font-size: 20px;
-  height: 30%;
-  font-weight: bold;
-`;
 
 const DivisionDiv = styled.div`
   height: 10%;
   width: 100%;
-  padding: 3%;
 `;
 const Division = styled.p`
   font-size: 20px;
@@ -332,9 +348,9 @@ const Popup = () => {
   };
 
   return (
-    <DeviceDiv>
+      <DeviceDiv>
       <TitleBackground>
-        <TitleDiv>
+          <TitleDiv>
           <ParagraphDiv>
             <SubjectTitle>
               {subject.length !== 0 && subject[0].openSbjtNm}
@@ -377,9 +393,11 @@ const Popup = () => {
               </TextDiv>
             </SubjectResultDiv>
           </SummaryDiv>
-        </TitleDiv>
+          </TitleDiv>
+  
       </TitleBackground>
-      <DetailDiv className="subjectDetail">
+      <Layout80vw>
+        <DetailDiv className="subjectDetail">
         <DivisionDiv>
           <Division>
             {subject.length !== 0 && subject[0].subjectID.substr(-2)}분반
@@ -388,15 +406,16 @@ const Popup = () => {
         <Row>
           <TimeTableDiv>
             <ContentTitle>
-              <ContentTitleSpan>시간표</ContentTitleSpan> 월 12:00 ~ 13:30, 화
-              12:00 ~ 13: 30
+              <ContentTitleSpan>시간표</ContentTitleSpan> 
+              <p>월 12:00 ~ 13:30, 화 12:00 ~ 13: 30</p>
             </ContentTitle>
             <TimeTableImg src={timetable} alt="timetable" />
           </TimeTableDiv>
           <MapDiv>
             <ContentTitleDiv>
               <ContentTitle>
-                <ContentTitleSpan>강의실</ContentTitleSpan> 공과대학 1호관 401호
+                <ContentTitleSpan>강의실</ContentTitleSpan> 
+                <p>공과대학 1호관 401호</p>
               </ContentTitle>
             </ContentTitleDiv>
             <KakaoMap />
@@ -444,7 +463,10 @@ const Popup = () => {
           />
         </GraphComponentDiv>
       </GraphDiv>
+      </Layout80vw>
+      
     </DeviceDiv>
+    
   );
 };
 
