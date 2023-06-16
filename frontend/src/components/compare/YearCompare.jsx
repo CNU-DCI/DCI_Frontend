@@ -15,32 +15,28 @@ const YearCompare = ({ cart }) => {
   useEffect(() => {
     if (cart.length !== 0) {
       cart.map((c) =>
-        getRegistration(c.subjectID).then((res) => setData(...data, res))
+        getRegistration(c.subjectID).then((res) => setData([...data, res]))
       );
     }
   }, [cart]);
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  useEffect(() => {
     if (data.length > 0) {
-      const dt = data.map((d) => {
-        var date = new Date(
-          d.tlsn_APLY_DT.replace(
-            /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/,
-            "$1-$2-$3 $4:$5:$6"
-          )
-        );
-        return [date.getTime(), d.registrationNumber];
-      });
-      const series = [
-        {
-          name: "수강인원 분포", //will be displayed on the y-axis
+      const series = data.map((d) => {
+        const dt = d.map((t) => {
+          var date = new Date(
+            t.tlsn_APLY_DT.replace(
+              /^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/,
+              "$1-$2-$3 $4:$5:$6"
+            )
+          );
+          return [date.getTime(), t.registrationNumber];
+        });
+        return {
+          name: d.subjectID,
           data: dt,
-        },
-      ];
+        };
+      });
 
       const options = {
         chart: {
@@ -84,6 +80,7 @@ const YearCompare = ({ cart }) => {
             stops: [0, 100],
           },
         },
+        colors: ["#2E93fA", "#66DA26", "#E91E63", "#FF9800"],
       };
       setOptions({ series, options });
     }
