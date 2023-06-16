@@ -6,133 +6,134 @@ import { Layout60vw } from "constants/layout";
 import { MainContainer } from "constants/layout";
 import { ReactComponent as Award } from "img/Award.svg";
 import { FaAngleDoubleDown } from "react-icons/fa";
+import { getStatisticsRank } from 'services/api'
 
-const mostCompetition_dummy = {
-  high: [
-    {
-      id: 1,
-      name: "인간관계론",
-    },
-    {
-      id: 2,
-      name: "공학도를 위한 세계문화",
-    },
-    {
-      id: 3,
-      name: "석유화학공학",
-    },
-    {
-      id: 4,
-      name: "경영통계학",
-    },
-    {
-      id: 5,
-      name: "수의영상의학실습 1",
-    },
-    {
-      id: 6,
-      name: "식물자원학과",
-    },
-    {
-      id: 7,
-      name: "인간관계론",
-    },
-    {
-      id: 8,
-      name: "경영학개론",
-    },
-    {
-      id: 9,
-      name: "음악의 이해",
-    },
-    {
-      id: 10,
-      name: "산림정책학",
-    },
-    {
-      id: 11,
-      name: "자료구조",
-    },
-    {
-      id: 12,
-      name: "정보검색",
-    },
-    {
-      id: 13,
-      name: "수리물리 1",
-    },
-    {
-      id: 14,
-      name: "외국어로서의 한국어교육",
-    },
-    {
-      id: 15,
-      name: "인간과 복지",
-    },
-  ],
-  low: [
-    {
-      id: 1,
-      name: "피아노교수법 1",
-    },
-    {
-      id: 2,
-      name: "현대인의 생활문화",
-    },
-    {
-      id: 3,
-      name: "소비자와 마케팅",
-    },
-    {
-      id: 4,
-      name: "간호이론분석",
-    },
-    {
-      id: 5,
-      name: "국어학개론",
-    },
-    {
-      id: 6,
-      name: "신재생에너지공학",
-    },
-    {
-      id: 7,
-      name: "과학적표현을 위한 3Ds MAX 모델링",
-    },
-    {
-      id: 8,
-      name: "논리와비판적사고",
-    },
-    {
-      id: 9,
-      name: "연구윤리",
-    },
-    {
-      id: 10,
-      name: "미생물생태학특론",
-    },
-    {
-      id: 11,
-      name: "바이오센서공학특론",
-    },
-    {
-      id: 12,
-      name: "바이오-AI 융합 인턴쉽",
-    },
-    {
-      id: 13,
-      name: "AI를 위한 기초 프로그래밍",
-    },
-    {
-      id: 14,
-      name: "약학이론실습Ⅳ",
-    },
-    {
-      id: 15,
-      name: "소비자와시장",
-    },
-  ],
-};
+// const mostCompetition_dummy = {
+//   high: [
+//     {
+//       id: 1,
+//       name: "인간관계론",
+//     },
+//     {
+//       id: 2,
+//       name: "공학도를 위한 세계문화",
+//     },
+//     {
+//       id: 3,
+//       name: "석유화학공학",
+//     },
+//     {
+//       id: 4,
+//       name: "경영통계학",
+//     },
+//     {
+//       id: 5,
+//       name: "수의영상의학실습 1",
+//     },
+//     {
+//       id: 6,
+//       name: "식물자원학과",
+//     },
+//     {
+//       id: 7,
+//       name: "인간관계론",
+//     },
+//     {
+//       id: 8,
+//       name: "경영학개론",
+//     },
+//     {
+//       id: 9,
+//       name: "음악의 이해",
+//     },
+//     {
+//       id: 10,
+//       name: "산림정책학",
+//     },
+//     {
+//       id: 11,
+//       name: "자료구조",
+//     },
+//     {
+//       id: 12,
+//       name: "정보검색",
+//     },
+//     {
+//       id: 13,
+//       name: "수리물리 1",
+//     },
+//     {
+//       id: 14,
+//       name: "외국어로서의 한국어교육",
+//     },
+//     {
+//       id: 15,
+//       name: "인간과 복지",
+//     },
+//   ],
+//   low: [
+//     {
+//       id: 1,
+//       name: "피아노교수법 1",
+//     },
+//     {
+//       id: 2,
+//       name: "현대인의 생활문화",
+//     },
+//     {
+//       id: 3,
+//       name: "소비자와 마케팅",
+//     },
+//     {
+//       id: 4,
+//       name: "간호이론분석",
+//     },
+//     {
+//       id: 5,
+//       name: "국어학개론",
+//     },
+//     {
+//       id: 6,
+//       name: "신재생에너지공학",
+//     },
+//     {
+//       id: 7,
+//       name: "과학적표현을 위한 3Ds MAX 모델링",
+//     },
+//     {
+//       id: 8,
+//       name: "논리와비판적사고",
+//     },
+//     {
+//       id: 9,
+//       name: "연구윤리",
+//     },
+//     {
+//       id: 10,
+//       name: "미생물생태학특론",
+//     },
+//     {
+//       id: 11,
+//       name: "바이오센서공학특론",
+//     },
+//     {
+//       id: 12,
+//       name: "바이오-AI 융합 인턴쉽",
+//     },
+//     {
+//       id: 13,
+//       name: "AI를 위한 기초 프로그래밍",
+//     },
+//     {
+//       id: 14,
+//       name: "약학이론실습Ⅳ",
+//     },
+//     {
+//       id: 15,
+//       name: "소비자와시장",
+//     },
+//   ],
+// };
 
 const CompetitionContainer = styled.div`
   display: flex;
@@ -214,8 +215,24 @@ const CompetitionLi = styled.li`
     margin-left: 30px;
   }
 `;
+
+
 const MostCompetition = () => {
-  const [mostCompetition, setdata] = useState(mostCompetition_dummy);
+  const [HighRank, setHighRank] = useState([]);
+  const [LowRank, setLowRank] = useState([]);
+
+  useEffect(()=>{
+    getStatisticsRank(30, 1)
+      .then(res => {
+        setHighRank(res)
+        console.log(HighRank);
+      })
+    getStatisticsRank(30, 0)
+      .then(res => {
+        setLowRank(res)
+        // console.log(LowRank)
+      })
+  },[])
 
   const navigate = useNavigate();
   const mostLi = useRef();
@@ -243,19 +260,32 @@ const MostCompetition = () => {
             <h3>🔥경쟁률 가장 높은 과목🔥</h3>
 
             <CompetitionUl>
-              {mostCompetition.high.map((most, idx) =>
+              {HighRank
+                .filter(
+                  (arr, index, callback) =>
+                    index ===
+                    callback.findIndex((loc) => loc.openSbjtNm === arr.openSbjtNm)
+                )
+                .map((most, idx) =>
                 idx <= 2 ? (
                   <CompetitionLi
                     onClick={ReceiveProps}
                     style={{ color: "#FF3838" }}
                   >
                     <p>{idx + 1}</p>
-                    <p ref={mostLi}>{most.name}</p>
+                    <p ref={mostLi}>{most.openSbjtNm}</p>
                   </CompetitionLi>
-                ) : (
+                ) 
+                : idx >= 15 ? (
+                  <CompetitionLi style={{display:"none"}} onClick={ReceiveProps}>
+                    <p>{idx + 1}</p>
+                    <p>{most.openSbjtNm}</p>
+                  </CompetitionLi>
+                )
+                : (
                   <CompetitionLi onClick={ReceiveProps}>
                     <p>{idx + 1}</p>
-                    <p>{most.name}</p>
+                    <p>{most.openSbjtNm}</p>
                   </CompetitionLi>
                 )
               )}
@@ -275,19 +305,32 @@ const MostCompetition = () => {
           <Competition>
             <h3>💧경쟁률 가장 낮은 과목💧</h3>
             <CompetitionUlBlue>
-              {mostCompetition.low.map((most, idx) =>
+            {LowRank
+                .filter(
+                  (arr, index, callback) =>
+                    index ===
+                    callback.findIndex((loc) => loc.openSbjtNm === arr.openSbjtNm)
+                )
+                .map((most, idx) =>
                 idx <= 2 ? (
                   <CompetitionLi
                     onClick={ReceiveProps}
                     style={{ color: "#1F77FB" }}
                   >
                     <p>{idx + 1}</p>
-                    <p>{most.name}</p>
+                    <p ref={mostLi}>{most.openSbjtNm}</p>
                   </CompetitionLi>
-                ) : (
+                ) 
+                : idx >= 15 ? (
+                  <CompetitionLi style={{display:"none"}} onClick={ReceiveProps}>
+                    <p>{idx + 1}</p>
+                    <p>{most.openSbjtNm}</p>
+                  </CompetitionLi>
+                )
+                : (
                   <CompetitionLi onClick={ReceiveProps}>
                     <p>{idx + 1}</p>
-                    <p>{most.name}</p>
+                    <p>{most.openSbjtNm}</p>
                   </CompetitionLi>
                 )
               )}
