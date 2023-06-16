@@ -38,10 +38,6 @@ const CompareSubject = ({ outer, results, removeData, stat }) => {
     });
   };
 
-  useEffect(() => {
-    console.log(results);
-  }, []);
-
   return (
     <CompareSubjectDiv>
       <CompareTitle>데이터 비교</CompareTitle>

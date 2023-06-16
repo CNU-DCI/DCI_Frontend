@@ -23,8 +23,13 @@ function App() {
   }, []);
 
   const addCart = (idx) => {
-    const tmpResult = results.filter((result) => result.subjectID === idx)[0];
-    setCart([...cart, tmpResult]);
+    const res = cart.filter((result) => result.subjectID === idx);
+    if (res.length === 0) {
+      const tmpResult = results.filter((result) => result.subjectID === idx)[0];
+      setCart([...cart, tmpResult]);
+    } else {
+      alert("이미 추가한 과목입니다.");
+    }
   };
 
   const removeData = (key) => {

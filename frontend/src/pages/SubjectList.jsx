@@ -61,7 +61,11 @@ const SubjectList = ({
       <Navbar></Navbar>
       <OuterDiv ref={outerDivRef}>
         <SubjectListDiv>
-          <SearchSubjectList major={major} setResults={setResults} />
+          <SearchSubjectList
+            major={major}
+            setResults={setResults}
+            srcContents={srcContents}
+          />
           <SearchResult result={results} addCart={addCart} stat={stat} />
           <img src={Chaveron} alt="Chaveron" class="chaveron_icon" />
           <Cart
