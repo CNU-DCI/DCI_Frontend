@@ -85,7 +85,10 @@ const cdnList = [
 ];
 
 const SearchSubjectList = ({ major, setResults, srcContents }) => {
-  const [query, setQuery] = useState([]);
+  const [query, setQuery] = useState({
+    year: "2022",
+    shmt: "1학기",
+  });
   const majorRef = useRef();
   const [selectedMajor, setSelectedMajor] = useState([]);
 
@@ -97,6 +100,10 @@ const SearchSubjectList = ({ major, setResults, srcContents }) => {
     majorRef.current.value = null;
     setQuery({ ...query, [title]: major[college].college });
   };
+
+  useEffect(() => {
+    console.log(query);
+  }, [query]);
 
   useEffect(() => {
     console.log(srcContents);
@@ -125,10 +132,9 @@ const SearchSubjectList = ({ major, setResults, srcContents }) => {
         <RowDiv>
           <SelectDiv>
             <SelectSection data-title="year" min={60} onChange={changeQuery}>
-              <option value="null" selected disabled>
-                ---
+              <option value="2022" selected>
+                2022
               </option>
-              <option value="2022">2022</option>
               <option value="2021">2021</option>
               <option value="2020">2020</option>
             </SelectSection>
@@ -136,12 +142,12 @@ const SearchSubjectList = ({ major, setResults, srcContents }) => {
           </SelectDiv>
           <SelectDiv>
             <SelectSection data-title="shmt" min={50} onChange={changeQuery}>
-              <option value="null" selected disabled>
-                ---
+              <option value="1학기" selected>
+                1
               </option>
-              <option value="1학기">1학기</option>
-              <option value="2학기">2학기</option>
+              <option value="2학기">2</option>
             </SelectSection>
+            <SelectP>학기</SelectP>
           </SelectDiv>
         </RowDiv>
         <RowDiv>
@@ -149,7 +155,7 @@ const SearchSubjectList = ({ major, setResults, srcContents }) => {
             <SelectP>이수구분</SelectP>
             <SelectSection data-title="cdn" onChange={changeQuery}>
               <option value="null" selected disabled>
-                ---
+                전체
               </option>
               {cdnList.map((m, idx) => (
                 <option value={m}>{m}</option>
@@ -160,7 +166,7 @@ const SearchSubjectList = ({ major, setResults, srcContents }) => {
             <SelectP>단과대</SelectP>
             <SelectSection data-title="colg" onChange={selectCollege}>
               <option value="null" selected disabled>
-                ---
+                전체
               </option>
               {major.map((m, idx) => (
                 <option value={idx} key={idx}>
@@ -177,7 +183,7 @@ const SearchSubjectList = ({ major, setResults, srcContents }) => {
               ref={majorRef}
             >
               <option value="null" disabled selected>
-                ---
+                전체
               </option>
               {selectedMajor.length !== 0 &&
                 selectedMajor.map((m, idx) => (

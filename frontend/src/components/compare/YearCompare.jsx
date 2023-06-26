@@ -42,7 +42,8 @@ const YearCompare = ({ cart }) => {
         chart: {
           id: "area-datetime",
           type: "area",
-          height: 350,
+          height: "100%",
+          width: "100%",
           zoom: {
             autoScaleYaxis: true,
             zoomedArea: {},
@@ -89,7 +90,13 @@ const YearCompare = ({ cart }) => {
   return (
     <YearCompareDiv>
       {data.length > 0 && options !== null && (
-        <Chart options={options.options} type="line" series={options.series} />
+        <Chart
+          options={options.options}
+          type="line"
+          series={options.series}
+          width="100%"
+          height="100%"
+        />
       )}
     </YearCompareDiv>
   );
