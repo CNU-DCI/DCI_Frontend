@@ -44,7 +44,6 @@ const PopupContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   animation: ${fadeIn} 0.3s linear;
   z-index: 1313;
 `

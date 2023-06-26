@@ -333,7 +333,7 @@ const Popup = () => {
 
   const competeRateSeries = [
     {
-      name: "분반별 정정인원 수", //will be displayed on the y-axis
+      name: "분반별 1분 이내 수강신청 비율", //will be displayed on the y-axis
       data: divideStat.map((d) => d.comp_rate),
     },
   ];
@@ -454,7 +454,7 @@ const Popup = () => {
           />
         </GraphComponentDiv>
         <GraphComponentDiv>
-          <p>분반별 경쟁률</p>
+          <p>분반별 1분 이내 수강신청 비율</p>
           <Chart
             options={competeRateOptions}
             type="bar"

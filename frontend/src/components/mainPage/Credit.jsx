@@ -11,6 +11,17 @@ import 효진_Credit from 'img/효진_Credit.png'
 import 현준_Credit from 'img/현준_Credit.jpg'
 import 용태_Credit from 'img/용태_Credit.jpg'
 import 윤선_Credit from 'img/윤선_Credit.jpg'
+const TextBox = styled.div`
+  h4 {
+    opacity: 0.6;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+`;
 
 const MemberContainer = styled.div`
   display: flex;
@@ -21,7 +32,8 @@ const MemberContainer = styled.div`
   &:nth-child(2n) {
     justify-content: flex-end;
     text-align: right;
-  }
+
+  
 `;
 
 const IMG = styled.img`
@@ -34,17 +46,7 @@ const IMG = styled.img`
   object-fit: contain;
 `;
 
-const TextBox = styled.div`
-  h4 {
-    opacity: 0.6;
-  }
 
-  h2 {
-    margin-bottom: 20px;
-    margin-left: -5px;
-    margin-right: -5px;
-  }
-`;
 const Credit = () => {
   return (
     <Layout60vw>
