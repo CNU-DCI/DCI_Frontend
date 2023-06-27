@@ -7,6 +7,7 @@ import timetable from "img/timetable.png";
 import { getAllClass, getStatistics } from "services/api";
 import Chart from "react-apexcharts";
 import { Layout80vw } from "constants/layout";
+import kakaomap from 'img/kakaomap.png'
 
 const DeviceDiv = styled.div`
   width: 100%;
@@ -116,6 +117,11 @@ const MapDiv = styled.div`
   width: 50%;
   height: 100%;
   margin: 0 auto;
+
+  img{
+    width: 80%;
+    margin: 0 auto;
+  }
 `;
 
 const Row = styled.div`
@@ -418,7 +424,8 @@ const Popup = () => {
                 <p>공과대학 1호관 401호</p>
               </ContentTitle>
             </ContentTitleDiv>
-            <KakaoMap />
+            {/* <KakaoMap /> */}
+            <img src={kakaomap} alt="" />
           </MapDiv>
         </Row>
         <EvaluationDiv>
